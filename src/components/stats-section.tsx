@@ -28,12 +28,12 @@ export function StatsSection() {
   useEffect(() => {
     if (!isClient) return;
 
+    const initialCount = 1236;
+    const startTime = Date.now();
+
     // Daily growth rate of 28%
     const dailyGrowthRate = 0.28;
     const growthPerSecond = Math.log(1 + dailyGrowthRate) / (24 * 60 * 60);
-
-    const initialCount = 1236;
-    const startTime = Date.now();
 
     const interval = setInterval(() => {
       const elapsedTimeInSeconds = (Date.now() - startTime) / 1000;

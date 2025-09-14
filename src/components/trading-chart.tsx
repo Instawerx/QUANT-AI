@@ -10,7 +10,9 @@ function TradingViewWidget({ symbol }: TradingViewWidgetProps) {
 
   useEffect(
     () => {
-      if (!container.current) return;
+      if (!container.current || container.current.querySelector('iframe')) {
+        return;
+      }
 
       const script = document.createElement("script");
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js";
@@ -40,10 +42,9 @@ function TradingViewWidget({ symbol }: TradingViewWidgetProps) {
 
       return () => {
         if (container.current) {
-            const chartWidget = container.current.querySelector('.tradingview-widget-container__widget');
-            if (chartWidget) {
-                container.current.removeChild(chartWidget);
-            }
+          while (container.current.firstChild) {
+            container.current.removeChild(container.current.firstChild);
+          }
         }
       }
     },
