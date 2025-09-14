@@ -8,7 +8,6 @@ import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 
 import { generateMarketingContent } from '@/ai/flows/generate-marketing-content';
-import { simulateUserTestimonials } from '@/ai/flows/simulate-user-testimonials';
 
 export default async function Home() {
   const marketingContentPromise = generateMarketingContent({
@@ -22,16 +21,11 @@ export default async function Home() {
     advantages: ['High success rates', 'Better than old trading bots.']
   });
 
-  const testimonialsPromise = Promise.all(
-    Array(10).fill(0).map(() => simulateUserTestimonials({}))
-  );
-
-  const [marketingContentData, testimonialsData] = await Promise.all([
+  const [marketingContentData] = await Promise.all([
     marketingContentPromise,
-    testimonialsPromise
   ]);
 
-  const testimonials = testimonialsData.map(t => t.testimonial);
+  const testimonials = ["As a beginner, QuantTrade AI made crypto trading accessible and profitable. The AI tools are easy to use, and I've already seen significant gains!"];
   const { marketingContent } = marketingContentData;
 
   const [slogan, ...contentPoints] = marketingContent.split('\n').filter(line => line.trim() !== '');
