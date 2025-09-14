@@ -1,18 +1,13 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const apiKey = process.env.COINAPI_KEY;
-  if (!apiKey) {
-    console.error('COINAPI_KEY is not configured in .env file');
-    return NextResponse.json({ error: 'API key not configured' }, { status: 500 });
-  }
-
-  const url = 'https://rest.coinapi.io/v1/exchangerate/BNB/USD';
+  // Using Binance's public API which does not require an API key for this endpoint.
+  const url = 'https://api.binance.com/api/v3/ticker/price?symbol=BNBUSDT';
 
   try {
     const response = await fetch(url, {
       headers: {
-        'X-CoinAPI-Key': apiKey,
+        'Accept': 'application/json',
       },
       next: {
         revalidate: 10 // Revalidate every 10 seconds
@@ -20,7 +15,6 @@ export async function GET() {
     });
 
     if (!response.ok) {
-      // Try to get more detailed error information from CoinAPI's response
       const errorText = await response.text();
       let errorDetails;
       try {
@@ -28,12 +22,21 @@ export async function GET() {
       } catch (e) {
         errorDetails = { message: errorText };
       }
-      console.error('CoinAPI Error:', { status: response.status, details: errorDetails });
-      return NextResponse.json({ error: 'Failed to fetch price from CoinAPI', details: errorDetails.error || errorDetails.message || 'Unknown API error' }, { status: response.status });
+      console.error('Binance API Error:', { status: response.status, details: errorDetails });
+      return NextResponse.json({ error: 'Failed to fetch price from Binance API', details: errorDetails.msg || errorDetails.message || 'Unknown API error' }, { status: response.status });
     }
 
     const data = await response.json();
-    return NextResponse.json({ price: data.rate });
+    
+    // The price from Binance is a string, so we need to parse it to a number.
+    const price = parseFloat(data.price);
+
+    if (isNaN(price)) {
+      console.error('Binance API Error: Invalid price format received', data);
+      return NextResponse.json({ error: 'Invalid price format received from Binance' }, { status: 500 });
+    }
+
+    return NextResponse.json({ price: price });
   } catch (error: any) {
     console.error('Failed to fetch BNB price due to a network or other error:', error);
     return NextResponse.json({ error: 'Internal Server Error', details: error.message }, { status: 500 });
