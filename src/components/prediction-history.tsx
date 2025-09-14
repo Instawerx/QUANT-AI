@@ -1,18 +1,48 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-const roundHistory = [
-    { round: 12344, result: "UP", price: 590.12 },
-    { round: 12343, result: "DOWN", price: 588.54 },
-    { round: 12342, result: "DOWN", price: 591.23 },
-    { round: 12341, result: "UP", price: 589.99 },
-    { round: 12340, result: "UP", price: 587.45 },
-];
+type RoundHistory = {
+    round: number;
+    result: "UP" | "DOWN";
+}
+
+// Generate initial synthetic data
+const generateInitialHistory = (count: number): RoundHistory[] => {
+    const history: RoundHistory[] = [];
+    for (let i = 0; i < count; i++) {
+        history.push({
+            round: 12344 - i,
+            result: Math.random() > 0.5 ? "UP" : "DOWN",
+        });
+    }
+    return history;
+};
 
 export function PredictionHistory() {
+    const [roundHistory, setRoundHistory] = useState<RoundHistory[]>(() => generateInitialHistory(10));
+    
+    // Simulate new rounds being added to history
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setRoundHistory(prevHistory => {
+                const newRound: RoundHistory = {
+                    round: prevHistory[0].round + 1,
+                    result: Math.random() > 0.5 ? "UP" : "DOWN",
+                };
+                // Keep history to a max of 20 entries
+                return [newRound, ...prevHistory].slice(0, 20);
+            });
+        }, 305000); // every 5 minutes and 5 seconds, to follow the card
+
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <Card className="mt-8">
             <CardHeader>
@@ -25,24 +55,29 @@ export function PredictionHistory() {
                         <TabsTrigger value="my-history">My History</TabsTrigger>
                     </TabsList>
                     <TabsContent value="rounds">
-                        <Table>
-                            <TableHeader>
-                                <TableRow>
-                                    <TableHead>Round</TableHead>
-                                    <TableHead className="text-right">Result</TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {roundHistory.map((item) => (
-                                    <TableRow key={item.round}>
-                                        <TableCell>#{item.round}</TableCell>
-                                        <TableCell className="text-right">
-                                            <Badge className={cn(item.result === "UP" ? "bg-green-500" : "bg-red-500", "text-white")}>{item.result}</Badge>
-                                        </TableCell>
+                        <ScrollArea className="h-[400px]">
+                            <Table>
+                                <TableHeader>
+                                    <TableRow>
+                                        <TableHead>Round</TableHead>
+                                        <TableHead className="text-right">Result</TableHead>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
+                                </TableHeader>
+                                <TableBody>
+                                    {roundHistory.map((item) => (
+                                        <TableRow key={item.round}>
+                                            <TableCell>#{item.round}</TableCell>
+                                            <TableCell className="text-right">
+                                                <Badge className={cn(
+                                                    "text-white",
+                                                    item.result === "UP" ? "bg-green-500 hover:bg-green-500/90" : "bg-red-500 hover:bg-red-500/90"
+                                                )}>{item.result}</Badge>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </ScrollArea>
                     </TabsContent>
                     <TabsContent value="my-history">
                         <div className="text-center py-12 text-muted-foreground">
@@ -54,3 +89,10 @@ export function PredictionHistory() {
         </Card>
     )
 }
+
+// Mock ScrollArea for now
+const ScrollArea = ({ className, children }: { className?: string, children: React.ReactNode }) => (
+    <div className={cn("overflow-y-auto", className)}>
+        {children}
+    </div>
+);

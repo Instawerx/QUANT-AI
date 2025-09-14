@@ -1,19 +1,25 @@
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
-import { TrendingUp, TrendingDown } from 'lucide-react';
+import { TrendingUp, TrendingDown, Circle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-export function BnbPrice() {
+type BnbPriceProps = {
+    onPriceUpdate?: (price: number, status: 'up' | 'down' | 'stale' | 'initial') => void;
+}
+
+export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
     const [price, setPrice] = useState<number | null>(null);
     const [status, setStatus] = useState<'initial' | 'up' | 'down' | 'stale'>('initial');
     const prevPriceRef = useRef<number | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
         const fetchPrice = async () => {
             try {
                 const response = await fetch('/api/price');
                 if (!response.ok) {
-                    throw new Error('Failed to fetch price');
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to fetch price');
                 }
                 const data = await response.json();
                 
@@ -21,40 +27,57 @@ export function BnbPrice() {
                     prevPriceRef.current = price;
                 }
                 setPrice(data.price);
-            } catch (error) {
-                console.error("Error fetching BNB price:", error);
+                setError(null);
+            } catch (error: any) {
+                console.error("Error fetching BNB price:", error.message);
+                setError(error.message);
                 setStatus('stale');
             }
         };
 
         fetchPrice();
-        const interval = setInterval(fetchPrice, 30000); // Poll every 30 seconds
+        const interval = setInterval(fetchPrice, 10000); // Poll every 10 seconds
 
         return () => clearInterval(interval);
     }, [price]);
 
     useEffect(() => {
-        if (price === null || prevPriceRef.current === null) {
+        if (price === null) {
             setStatus('initial');
+            if(onPriceUpdate) onPriceUpdate(0, 'initial');
             return;
         }
 
-        let newStatus: 'up' | 'down' = price > prevPriceRef.current ? 'up' : 'down';
-        if (price === prevPriceRef.current) {
-            newStatus = status as 'up' | 'down'; // keep last status
+        let newStatus: 'up' | 'down' | 'stale' = 'stale';
+        if (prevPriceRef.current !== null) {
+            if (price > prevPriceRef.current) {
+                newStatus = 'up';
+            } else if (price < prevPriceRef.current) {
+                newStatus = 'down';
+            }
         }
         
         setStatus(newStatus);
+        if(onPriceUpdate) onPriceUpdate(price, newStatus);
         
         const timer = setTimeout(() => {
-            if (status !== 'initial') {
-                setStatus('stale');
-            }
-        }, 500); // Reset color after 500ms
+            setStatus('stale');
+             if(onPriceUpdate) onPriceUpdate(price, 'stale');
+        }, 1000); // Visual indicator resets after 1s
 
         return () => clearTimeout(timer);
 
-    }, [price, status]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [price]);
+    
+    if (error) {
+        return (
+             <div className="flex flex-col items-center text-red-500">
+                <span className="text-sm font-semibold">Error loading price</span>
+                <span className="text-xs">{error}</span>
+            </div>
+        )
+    }
 
 
     const formattedPrice = price ? `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Loading...';
@@ -66,10 +89,16 @@ export function BnbPrice() {
         'initial': 'text-foreground',
     }[status];
 
+    const Icon = {
+        'up': <TrendingUp className="h-6 w-6" />,
+        'down': <TrendingDown className="h-6 w-6" />,
+        'stale': <Circle className="h-5 w-5 fill-current" />,
+        'initial': <Circle className="h-5 w-5 animate-pulse" />
+    }[status]
+
     return (
-        <div className={cn("flex items-center gap-2 text-2xl font-bold font-mono transition-colors duration-500", priceColor)}>
-            {status === 'up' && <TrendingUp className="h-6 w-6" />}
-            {status === 'down' && <TrendingDown className="h-6 w-6" />}
+        <div className={cn("flex items-center gap-2 text-2xl font-bold font-mono transition-colors duration-300", priceColor)}>
+            {Icon}
             <span>{formattedPrice}</span>
         </div>
     );
