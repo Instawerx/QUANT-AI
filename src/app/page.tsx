@@ -11,6 +11,7 @@ import { SignupChatbot } from "@/components/signup-chatbot";
 import { FaqSection } from "@/components/faq-section";
 import { generateMarketingContent } from "@/ai/flows/generate-marketing-content";
 import { simulateUserTestimonials } from "@/ai/flows/simulate-user-testimonials";
+import { LiveGainsTicker } from "@/components/live-gains-ticker";
 
 export default async function Home() {
   const marketingInfo = await generateMarketingContent({
@@ -43,13 +44,14 @@ export default async function Home() {
         <StatsSection />
         <TradingChartSection />
         <FeaturesSection />
-        <TestimonialsTicker testimonials={testimonials} />
         <CtaSection />
         <FaqSection />
+        <TestimonialsTicker testimonials={testimonials} />
       </main>
       <Footer />
       <SignUpToast />
       <SignupChatbot />
+      <LiveGainsTicker />
     </div>
   );
 }
