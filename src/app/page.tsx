@@ -7,30 +7,11 @@ import { TestimonialsTicker } from "@/components/testimonials-ticker";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 
-import { generateMarketingContent } from '@/ai/flows/generate-marketing-content';
-
 export default async function Home() {
-  const marketingContentPromise = generateMarketingContent({
-    productName: 'QuantTrade AI',
-    uniqueFeatures: [
-      'Multi LLM Neural Network',
-      'Real-time monitoring',
-      'Automated algo robot trading via API',
-      'Cloud infrastructure'
-    ],
-    advantages: ['High success rates', 'Better than old trading bots.']
-  });
-
-  const [marketingContentData] = await Promise.all([
-    marketingContentPromise,
-  ]);
-
+  const slogan = "QuantTrade AI: The future of automated cryptocurrency trading is here.";
+  const mainContent = "Leverage our Multi LLM Neural Network for unparalleled success. Our platform offers real-time monitoring, automated algo robot trading via API, and is built on a resilient cloud infrastructure for high success rates, outperforming old trading bots.";
+  
   const testimonials = ["As a beginner, QuantTrade AI made crypto trading accessible and profitable. The AI tools are easy to use, and I've already seen significant gains!"];
-  const { marketingContent } = marketingContentData;
-
-  const [slogan, ...contentPoints] = marketingContent.split('\n').filter(line => line.trim() !== '');
-  const mainContent = contentPoints.join(' ');
-
 
   return (
     <div className="flex flex-col min-h-screen">

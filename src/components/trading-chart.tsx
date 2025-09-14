@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Area, AreaChart, CartesianGrid, ReferenceDot, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
-import { ChartTooltipContent } from "@/components/ui/chart"
+import { ChartContainer, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 
 const generateChartData = () => {
   const data = [];
@@ -28,11 +28,18 @@ const buySellPoints = [
   { time: chartData[55].time, value: chartData[55].value, type: 'sell' },
 ];
 
+const chartConfig = {
+  value: {
+    label: "Price",
+  },
+} satisfies ChartConfig
+
 export function TradingChart() {
   return (
-    <div className="h-[400px] w-full">
+    <ChartContainer config={chartConfig} className="h-[400px] w-full">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart
+          accessibilityLayer
           data={chartData}
           margin={{
             top: 5,
@@ -88,6 +95,6 @@ export function TradingChart() {
           ))}
         </AreaChart>
       </ResponsiveContainer>
-    </div>
+    </ChartContainer>
   )
 }
