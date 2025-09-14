@@ -1,70 +1,76 @@
 "use client";
-import React, { useEffect, useRef, memo } from 'react';
-
-function BnbPriceWidget() {
-  const container = useRef<HTMLDivElement>(null);
-
-  useEffect(
-    () => {
-      if (!container.current) return;
-
-      const script = document.createElement("script");
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js";
-      script.type = "text/javascript";
-      script.async = true;
-      script.innerHTML = `
-      {
-        "symbols": [
-          [
-            "BINANCE:BNBUSDT|1D"
-          ]
-        ],
-        "chartOnly": true,
-        "width": "100%",
-        "height": "100%",
-        "locale": "en",
-        "colorTheme": "dark",
-        "autosize": true,
-        "showVolume": false,
-        "showMA": false,
-        "hideDateRanges": true,
-        "hideMarketStatus": true,
-        "hideSymbolLogo": true,
-        "scalePosition": "no",
-        "scaleMode": "Normal",
-        "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
-        "fontSize": "10",
-        "noTimeScale": true,
-        "valuesTracking": "1",
-        "changeMode": "price-and-percent",
-        "chartType": "area",
-        "maLineColor": "#2962FF",
-        "maLineWidth": 1,
-        "maLength": 9,
-        "backgroundColor": "rgba(0, 0, 0, 0)",
-        "widgetFontColor": "rgba(255, 255, 255, 1)"
-      }`;
-      
-      container.current.innerHTML = '';
-      container.current.appendChild(script);
-
-      return () => {
-        if (container.current) {
-            container.current.innerHTML = '';
-        }
-      }
-    },
-    []
-  );
-
-  return (
-    <div className="tradingview-widget-container" ref={container} style={{ height: "40px", width: "120px" }}>
-    </div>
-  );
-}
-
-const MemoizedBnbPriceWidget = memo(BnbPriceWidget);
+import React, { useEffect, useState, useRef } from 'react';
+import { TrendingUp, TrendingDown } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 export function BnbPrice() {
-    return <MemoizedBnbPriceWidget />;
+    const [price, setPrice] = useState<number | null>(null);
+    const [status, setStatus] = useState<'initial' | 'up' | 'down' | 'stale'>('initial');
+    const prevPriceRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        const fetchPrice = async () => {
+            try {
+                const response = await fetch('/api/price');
+                if (!response.ok) {
+                    throw new Error('Failed to fetch price');
+                }
+                const data = await response.json();
+                
+                if (price !== null) {
+                    prevPriceRef.current = price;
+                }
+                setPrice(data.price);
+            } catch (error) {
+                console.error("Error fetching BNB price:", error);
+                setStatus('stale');
+            }
+        };
+
+        fetchPrice();
+        const interval = setInterval(fetchPrice, 30000); // Poll every 30 seconds
+
+        return () => clearInterval(interval);
+    }, [price]);
+
+    useEffect(() => {
+        if (price === null || prevPriceRef.current === null) {
+            setStatus('initial');
+            return;
+        }
+
+        let newStatus: 'up' | 'down' = price > prevPriceRef.current ? 'up' : 'down';
+        if (price === prevPriceRef.current) {
+            newStatus = status as 'up' | 'down'; // keep last status
+        }
+        
+        setStatus(newStatus);
+        
+        const timer = setTimeout(() => {
+            if (status !== 'initial') {
+                setStatus('stale');
+            }
+        }, 500); // Reset color after 500ms
+
+        return () => clearTimeout(timer);
+
+    }, [price, status]);
+
+
+    const formattedPrice = price ? `$${price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` : 'Loading...';
+
+    const priceColor = {
+        'up': 'text-green-500',
+        'down': 'text-red-500',
+        'stale': 'text-foreground',
+        'initial': 'text-foreground',
+    }[status];
+
+    return (
+        <div className={cn("flex items-center gap-2 text-2xl font-bold font-mono transition-colors duration-500", priceColor)}>
+            {status === 'up' && <TrendingUp className="h-6 w-6" />}
+            {status === 'down' && <TrendingDown className="h-6 w-6" />}
+            <span>{formattedPrice}</span>
+        </div>
+    );
 }

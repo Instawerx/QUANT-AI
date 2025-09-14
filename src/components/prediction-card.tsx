@@ -45,6 +45,9 @@ export function PredictionCard() {
         </div>
       </CardHeader>
       <CardContent className="p-0">
+        <div className="p-6 border-b flex flex-col items-center justify-center">
+            <BnbPrice />
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="p-6 bg-gradient-to-b from-green-500/10 to-transparent border-r">
             <div className="flex items-center justify-between mb-4">
@@ -68,16 +71,12 @@ export function PredictionCard() {
         <div className="p-4 border-t">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">Last Price</p>
-              <BnbPrice />
+              <p className="text-sm text-muted-foreground">Locked Price</p>
+              <p className="text-lg font-bold">$590.00</p>
             </div>
             <div className="text-center">
               <p className="text-sm text-muted-foreground">Time Remaining</p>
               <p className="text-2xl font-bold font-mono">{formatTime(timeLeft)}</p>
-            </div>
-            <div>
-                <p className="text-sm text-muted-foreground text-right">Locked Price</p>
-                <p className="text-lg font-bold text-right">$590.00</p>
             </div>
           </div>
         </div>
