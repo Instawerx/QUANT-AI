@@ -18,7 +18,7 @@ export function PredictionCard() {
   const ROUND_DURATION = 300; // 5 minutes
   const [timeLeft, setTimeLeft] = useState(ROUND_DURATION);
   const [isLive, setIsLive] = useState(true);
-  const [roundId, setRoundId] = useState(12345);
+  const [roundId, setRoundId] = useState(Math.floor(Math.random() * 1000) + 12000);
   const [lockedPrice, setLockedPrice] = useState<number | null>(null);
   const [currentPrice, setCurrentPrice] = useState<number | null>(null);
   const [prizePoolUp, setPrizePoolUp] = useState(0);
