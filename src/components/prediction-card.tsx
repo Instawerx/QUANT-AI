@@ -2,7 +2,8 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ArrowUp, ArrowDown, History, Info } from "lucide-react";
+import { ArrowUp, ArrowDown, History } from "lucide-react";
+import { BnbPrice } from './bnb-price';
 
 export function PredictionCard() {
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
@@ -68,7 +69,7 @@ export function PredictionCard() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-muted-foreground">Last Price</p>
-              <p className="text-lg font-bold text-primary">$589.12</p>
+              <BnbPrice />
             </div>
             <div className="text-center">
               <p className="text-sm text-muted-foreground">Time Remaining</p>
