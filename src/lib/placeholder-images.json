@@ -1,3 +1,11 @@
+
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "Abstract network of nodes and connections representing AI and data.",
+      "imageUrl": "https://picsum.photos/seed/101/1920/1080",
+      "imageHint": "abstract network"
+    }
+  ]
 }
