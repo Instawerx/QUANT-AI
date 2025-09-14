@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type RoundHistory = {
     round: number;
@@ -25,10 +26,16 @@ const generateInitialHistory = (count: number): RoundHistory[] => {
 };
 
 export function PredictionHistory() {
-    const [roundHistory, setRoundHistory] = useState<RoundHistory[]>(() => generateInitialHistory(10));
+    const [roundHistory, setRoundHistory] = useState<RoundHistory[]>([]);
     
+    useEffect(() => {
+        setRoundHistory(generateInitialHistory(10));
+    }, []);
+
     // Simulate new rounds being added to history
     useEffect(() => {
+        if (roundHistory.length === 0) return;
+
         const interval = setInterval(() => {
             setRoundHistory(prevHistory => {
                 const newRound: RoundHistory = {
@@ -41,7 +48,7 @@ export function PredictionHistory() {
         }, 305000); // every 5 minutes and 5 seconds, to follow the card
 
         return () => clearInterval(interval);
-    }, []);
+    }, [roundHistory.length]);
 
     return (
         <Card className="mt-8">
@@ -89,10 +96,3 @@ export function PredictionHistory() {
         </Card>
     )
 }
-
-// Mock ScrollArea for now
-const ScrollArea = ({ className, children }: { className?: string, children: React.ReactNode }) => (
-    <div className={cn("overflow-y-auto", className)}>
-        {children}
-    </div>
-);

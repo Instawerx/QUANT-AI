@@ -19,41 +19,43 @@ function getRandomElement<T>(arr: T[]): T {
 export function SignUpToast() {
   const [visible, setVisible] = useState(false);
   const [content, setContent] = useState({ name: '', city: '' });
-  const [showInterval, setShowInterval] = useState<NodeJS.Timeout | null>(null);
-  const [hideInterval, setHideInterval] = useState<NodeJS.Timeout | null>(null);
-
-  const showToast = () => {
-    setContent({
-      name: getRandomElement(names),
-      city: getRandomElement(cities),
-    });
-    setVisible(true);
-
-    if (hideInterval) clearTimeout(hideInterval);
-    const newHideInterval = setTimeout(() => {
-      setVisible(false);
-    }, 4000); // Toast visible for 4 seconds
-    setHideInterval(newHideInterval);
-  };
   
   useEffect(() => {
-    const randomInterval = Math.random() * 8000 + 4000; // between 4-12 seconds
-    if (showInterval) clearTimeout(showInterval);
-    const newShowInterval = setTimeout(showToast, randomInterval);
-    setShowInterval(newShowInterval)
+    let showTimeout: NodeJS.Timeout;
+    let hideTimeout: NodeJS.Timeout;
+
+    const scheduleShow = () => {
+      const randomInterval = Math.random() * 8000 + 4000; // between 4-12 seconds
+      showTimeout = setTimeout(() => {
+        setContent({
+          name: getRandomElement(names),
+          city: getRandomElement(cities),
+        });
+        setVisible(true);
+
+        // Schedule hide
+        hideTimeout = setTimeout(() => {
+          setVisible(false);
+          // And schedule the next show
+          scheduleShow(); 
+        }, 4000); // Toast visible for 4 seconds
+
+      }, randomInterval);
+    };
+
+    scheduleShow();
 
     return () => {
-      if (showInterval) clearTimeout(showInterval);
-      if (hideInterval) clearTimeout(hideInterval);
+      clearTimeout(showTimeout);
+      clearTimeout(hideTimeout);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [visible]);
+  }, []);
 
 
   return (
     <div className={cn(
       "fixed bottom-4 left-4 z-50 transition-all duration-500",
-      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5 pointer-events-none"
     )}>
       <Card className="p-3 bg-card border-border shadow-lg">
         <div className="flex items-center gap-3">
