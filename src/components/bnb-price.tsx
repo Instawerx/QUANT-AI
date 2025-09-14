@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from 'react';
-import { TrendingUp, TrendingDown, Circle } from 'lucide-react';
+import { TrendingUp, TrendingDown, Circle, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type BnbPriceProps = {
@@ -17,11 +17,11 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
         const fetchPrice = async () => {
             try {
                 const response = await fetch('/api/price');
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error || 'Failed to fetch price');
-                }
                 const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.details || data.error || 'Failed to fetch price');
+                }
                 
                 if (price !== null) {
                     prevPriceRef.current = price;
@@ -39,7 +39,7 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
         const interval = setInterval(fetchPrice, 10000); // Poll every 10 seconds
 
         return () => clearInterval(interval);
-    }, [price]);
+    }, []); // Changed dependency to empty to avoid re-triggering on price change
 
     useEffect(() => {
         if (price === null) {
@@ -72,9 +72,10 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
     
     if (error) {
         return (
-             <div className="flex flex-col items-center text-red-500">
+             <div className="flex flex-col items-center text-red-500 text-center">
+                <AlertTriangle className="h-8 w-8 mb-2" />
                 <span className="text-sm font-semibold">Error loading price</span>
-                <span className="text-xs">{error}</span>
+                <span className="text-xs max-w-xs">{error}</span>
             </div>
         )
     }
