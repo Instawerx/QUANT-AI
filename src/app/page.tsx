@@ -8,10 +8,15 @@ import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 
 export default async function Home() {
-  const slogan = "QuantTrade AI: The future of automated cryptocurrency trading is here.";
-  const mainContent = "Leverage our Multi LLM Neural Network for unparalleled success. Our platform offers real-time monitoring, automated algo robot trading via API, and is built on a resilient cloud infrastructure for high success rates, outperforming old trading bots.";
-  
-  const testimonials = ["As a beginner, QuantTrade AI made crypto trading accessible and profitable. The AI tools are easy to use, and I've already seen significant gains!"];
+  const slogan = "These are not your Grandfather's trading bots.";
+  const mainContent = "Unparalleled success rates with our Multi LLM Neural Network and real time monitoring via our cloud infrastructure.";
+  const testimonials = [
+    "QuantTrade AI has revolutionized my trading strategy, delivering consistent profits with its advanced AI.",
+    "As a seasoned trader, I'm impressed by the accuracy and reliability of QuantTrade AI's algorithms.",
+    "The real-time monitoring and cloud infrastructure provide peace of mind and exceptional performance.",
+    "I've seen a 4% hourly growth in my portfolio since I started using QuantTrade AI's automated trading.",
+    "The platform is intuitive and powerful, making it the best trading tool I've ever used."
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">

@@ -20,7 +20,7 @@ const GenerateMarketingContentInputSchema = z.object({
 export type GenerateMarketingContentInput = z.infer<typeof GenerateMarketingContentInputSchema>;
 
 const GenerateMarketingContentOutputSchema = z.object({
-  marketingContent: z.string().describe('The generated marketing content.'),
+  marketingContent: z.string().describe('The generated marketing content, starting with a slogan on its own line, like Slogan: "The Slogan"'),
 });
 export type GenerateMarketingContentOutput = z.infer<typeof GenerateMarketingContentOutputSchema>;
 
@@ -44,7 +44,9 @@ const prompt = ai.definePrompt({
   - {{{this}}}
   {{/each}}
 
-  Create marketing content that highlights these features and advantages to attract potential users and emphasize the platform's value proposition. Include a catchy slogan that is modern and emphasizes the platform is better than old trading bots.
+  Create marketing content that highlights these features and advantages to attract potential users and emphasize the platform's value proposition. 
+  
+  Start with a catchy slogan on a single line, formatted exactly like this: Slogan: "Your Catchy Slogan Here". The slogan should be modern and emphasize that the platform is superior to older trading bots. Then, on a new line, write the rest of the marketing copy.
   `,
 });
 
