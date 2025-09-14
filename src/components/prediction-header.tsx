@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { Zap, Trophy, CandlestickChart, Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { ConnectWalletButton } from "./connect-wallet-button";
 
 export function PredictionHeader() {
@@ -46,6 +46,10 @@ export function PredictionHeader() {
                 </Button>
               </SheetTrigger>
               <SheetContent side="right">
+                <SheetHeader>
+                  <SheetTitle className="sr-only">Prediction Menu</SheetTitle>
+                  <SheetDescription className="sr-only">Prediction-related navigation menu</SheetDescription>
+                </SheetHeader>
                 <nav className="grid gap-6 text-lg font-medium mt-8">
                   {navItems.map((item) => (
                     <Link

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "./logo";
 import { Button } from "./ui/button";
 import { ConnectWalletButton } from "./connect-wallet-button";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { Menu } from "lucide-react";
 
 export function Header() {
@@ -39,6 +39,10 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
+              <SheetHeader>
+                <SheetTitle className="sr-only">Menu</SheetTitle>
+                <SheetDescription className="sr-only">Main navigation menu</SheetDescription>
+              </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium mt-8">
                 {navItems.map((item) => (
                   <Link
