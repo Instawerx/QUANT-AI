@@ -7,6 +7,7 @@ export function Header() {
   const navItems = [
     { name: "Features", href: "#features" },
     { name: "Chart", href: "#chart" },
+    { name: "Prediction", href: "/prediction" },
     { name: "Start Trial", href: "#cta" },
   ];
 
