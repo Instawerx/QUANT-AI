@@ -28,6 +28,10 @@ export function SignupChatbot() {
       chat({ history: [] }).then(response => {
         setMessages([{ id: '0', role: 'model', content: response.response }]);
         setIsLoading(false);
+      }).catch(error => {
+        console.error('Chatbot error:', error);
+        setMessages([{ id: '0', role: 'model', content: "Sorry, I'm having a little trouble right now. Please try again later." }]);
+        setIsLoading(false);
       });
     }
   }, [isOpen, messages.length]);

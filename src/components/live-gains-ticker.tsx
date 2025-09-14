@@ -17,6 +17,8 @@ export function LiveGainsTicker() {
       setGains(response.gains);
       // Stagger the first appearance
       setTimeout(() => setIsVisible(true), 2000);
+    }).catch(error => {
+      console.error("Error generating recent gains:", error);
     });
   }, []);
 
@@ -40,6 +42,8 @@ export function LiveGainsTicker() {
     const dataRefreshInterval = setInterval(() => {
        generateRecentGains({ count: 5 }).then(response => {
         setGains(response.gains);
+       }).catch(error => {
+        console.error("Error generating recent gains:", error);
        });
     }, 60000); // Refresh data every minute
 

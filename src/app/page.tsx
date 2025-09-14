@@ -6,13 +6,10 @@ import { FeaturesSection } from "@/components/features-section";
 import { TestimonialsTicker } from "@/components/testimonials-ticker";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
-import { SignupChatbot } from "@/components/signup-chatbot";
 import { FaqSection } from "@/components/faq-section";
-import { DynamicContent } from "@/components/dynamic-content";
 
 export default function Home() {
-  // Default static content to ensure the page always loads quickly.
-  const fallbackContent = {
+  const staticContent = {
     slogan: "The Future of Trading is Here. Don't Get Left Behind.",
     mainContent: "Leverage our Multi-LLM Neural Network to analyze market data with unprecedented depth and accuracy. Our automated trading bots work for you 24/7, executing trades based on AI-driven insights.",
     testimonials: [
@@ -28,18 +25,15 @@ export default function Home() {
     <div className="flex flex-col min-h-screen">
       <Header />
       <main className="flex-grow">
-        <DynamicContent fallback={fallbackContent}>
-          <HeroSection slogan={fallbackContent.slogan} content={fallbackContent.mainContent} />
+          <HeroSection slogan={staticContent.slogan} content={staticContent.mainContent} />
           <StatsSection />
           <TradingChartSection />
           <FeaturesSection />
+          <TestimonialsTicker testimonials={staticContent.testimonials} />
           <CtaSection />
           <FaqSection />
-          <TestimonialsTicker testimonials={fallbackContent.testimonials} />
-        </DynamicContent>
       </main>
       <Footer />
-      <SignupChatbot />
     </div>
   );
 }

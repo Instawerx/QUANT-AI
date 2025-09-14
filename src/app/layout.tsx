@@ -2,9 +2,10 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
-import { LiveGainsTicker } from '@/components/live-gains-ticker';
 import { WalletProvider } from '@/context/wallet-context';
+import { SignupChatbot } from '@/components/signup-chatbot';
 import { SignUpToast } from '@/components/signup-toast';
+import { LiveGainsTicker } from '@/components/live-gains-ticker';
 
 export const metadata: Metadata = {
   title: 'QuantTrade AI',
@@ -29,6 +30,7 @@ export default function RootLayout({
           <Toaster />
           <SignUpToast />
           <LiveGainsTicker />
+          <SignupChatbot />
         </WalletProvider>
       </body>
     </html>
