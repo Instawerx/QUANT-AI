@@ -42,7 +42,7 @@ export function Header() {
             </SheetTrigger>
             <SheetContent side="right">
               <SheetHeader>
-                <SheetTitle className="sr-only">Menu</SheetTitle>
+                <SheetTitle>Menu</SheetTitle>
                 <SheetDescription className="sr-only">Main navigation menu</SheetDescription>
               </SheetHeader>
               <nav className="grid gap-6 text-lg font-medium mt-8">

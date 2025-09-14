@@ -33,7 +33,7 @@ export function HeroSection({ slogan, content }: HeroSectionProps) {
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="font-bold text-lg px-8 py-6">
-              <Link href="#chart">
+              <Link href="/prediction">
                 See Live Demo
               </Link>
             </Button>
