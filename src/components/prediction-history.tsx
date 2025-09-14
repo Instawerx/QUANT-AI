@@ -2,6 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 const roundHistory = [
     { round: 12344, result: "UP", price: 590.12 },
@@ -36,7 +37,7 @@ export function PredictionHistory() {
                                     <TableRow key={item.round}>
                                         <TableCell>#{item.round}</TableCell>
                                         <TableCell className="text-right">
-                                            <Badge variant={item.result === "UP" ? "default" : "destructive"} className={item.result === "UP" ? "bg-green-500" : "bg-red-500"}>{item.result}</Badge>
+                                            <Badge className={cn(item.result === "UP" ? "bg-green-500" : "bg-red-500", "text-white")}>{item.result}</Badge>
                                         </TableCell>
                                     </TableRow>
                                 ))}
