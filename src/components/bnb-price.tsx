@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { TrendingUp, TrendingDown, Circle, AlertTriangle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from './ui/tooltip';
 
 type BnbPriceProps = {
     onPriceUpdate?: (price: number, status: 'up' | 'down' | 'stale' | 'initial') => void;
@@ -20,6 +21,10 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
                 const data = await response.json();
                 
                 if (!response.ok) {
+                    // Use a more specific error message if the key is invalid
+                    if (data.details && data.details.includes('API key is not configured')) {
+                         throw new Error('CoinMarketCap API key is not configured. Please add it to your .env file.');
+                    }
                     throw new Error(data.details || data.error || 'Failed to fetch price');
                 }
                 
@@ -27,7 +32,7 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
                     prevPriceRef.current = price;
                 }
                 setPrice(data.price);
-                setError(null);
+                setError(null); // Clear previous errors on success
             } catch (error: any) {
                 console.error("Error fetching BNB price:", error.message);
                 setError(error.message);
@@ -39,7 +44,7 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
         const interval = setInterval(fetchPrice, 10000); // Poll every 10 seconds
 
         return () => clearInterval(interval);
-    }, []); // Changed dependency to empty to avoid re-triggering on price change
+    }, [price]);
 
     useEffect(() => {
         if (price === null) {
@@ -72,11 +77,19 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
     
     if (error) {
         return (
-             <div className="flex flex-col items-center text-red-500 text-center">
-                <AlertTriangle className="h-8 w-8 mb-2" />
-                <span className="text-sm font-semibold">Error loading price</span>
-                <span className="text-xs max-w-xs">{error}</span>
-            </div>
+            <TooltipProvider>
+                <Tooltip>
+                    <TooltipTrigger asChild>
+                        <div className="flex items-center gap-2 text-2xl font-bold font-mono text-destructive">
+                           <AlertTriangle className="h-6 w-6" />
+                            <span>Error</span>
+                        </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p className="max-w-xs">{error}</p>
+                    </TooltipContent>
+                </Tooltip>
+            </TooltipProvider>
         )
     }
 
