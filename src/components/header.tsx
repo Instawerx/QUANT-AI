@@ -10,6 +10,7 @@ export function Header() {
     { name: "Features", href: "#features" },
     { name: "Chart", href: "#chart" },
     { name: "Prediction", href: "/prediction" },
+    { name: "FX Trading", href: "/fx-trading" },
     { name: "Start Trial", href: "#cta" },
   ];
 
