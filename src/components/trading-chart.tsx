@@ -1,7 +1,11 @@
 "use client";
 import React, { useEffect, useRef, memo } from 'react';
 
-function TradingViewWidget() {
+type TradingViewWidgetProps = {
+  symbol: string;
+};
+
+function TradingViewWidget({ symbol }: TradingViewWidgetProps) {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(
@@ -15,7 +19,7 @@ function TradingViewWidget() {
       script.innerHTML = `
       {
         "autosize": true,
-        "symbol": "BINANCE:MATICUSDT",
+        "symbol": "${symbol}",
         "interval": "D",
         "timezone": "Etc/UTC",
         "theme": "dark",
@@ -29,7 +33,6 @@ function TradingViewWidget() {
         "support_host": "https://www.tradingview.com"
       }`;
       
-      // Clear the container before appending the script
       container.current.innerHTML = '';
       container.current.appendChild(script);
 
@@ -39,12 +42,12 @@ function TradingViewWidget() {
         }
       }
     },
-    []
+    [symbol]
   );
 
   return (
     <div className="tradingview-widget-container" ref={container} style={{ height: "700px", width: "100%" }}>
-      <div className="tradingview-widget-container__widget" style={{ height: "100%", width: "100%" }}></div>
+      <div className="tradingview-widget-container__widget" style={{ height: "calc(100% - 32px)", width: "100%" }}></div>
       <div className="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span className="blue-text">Track all markets on TradingView</span></a></div>
     </div>
   );
@@ -52,6 +55,6 @@ function TradingViewWidget() {
 
 const MemoizedTradingViewWidget = memo(TradingViewWidget);
 
-export function TradingChart() {
-    return <MemoizedTradingViewWidget />;
+export function TradingChart({ symbol }: TradingViewWidgetProps) {
+    return <MemoizedTradingViewWidget symbol={symbol} />;
 }
