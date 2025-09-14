@@ -14,10 +14,10 @@ export function TradingChartSection() {
         <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
           <Card className="shadow-lg shadow-primary/10 overflow-hidden">
             <CardHeader>
-              <CardTitle>Polygon/USDT Futures</CardTitle>
+              <CardTitle>Solana/USDT Futures</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
-              <TradingChart symbol="BINANCE:MATICUSDT" />
+              <TradingChart symbol="BINANCE:SOLUSDT" />
             </CardContent>
           </Card>
           <Card className="shadow-lg shadow-primary/10 overflow-hidden">
