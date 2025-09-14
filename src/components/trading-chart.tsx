@@ -36,12 +36,14 @@ function TradingViewWidget({ symbol }: TradingViewWidgetProps) {
         "support_host": "https://www.tradingview.com"
       }`;
       
-      container.current.innerHTML = '';
       container.current.appendChild(script);
 
       return () => {
         if (container.current) {
-            container.current.innerHTML = '';
+            const chartWidget = container.current.querySelector('.tradingview-widget-container__widget');
+            if (chartWidget) {
+                container.current.removeChild(chartWidget);
+            }
         }
       }
     },
