@@ -2,6 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
+import { LiveGainsTicker } from '@/components/live-gains-ticker';
 
 export const metadata: Metadata = {
   title: 'QuantTrade AI',
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={cn("font-body antialiased", "min-h-screen bg-background")}>
         {children}
         <Toaster />
+        <LiveGainsTicker />
       </body>
     </html>
   );
