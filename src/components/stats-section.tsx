@@ -28,12 +28,24 @@ export function StatsSection() {
   useEffect(() => {
     if (!isClient) return;
 
-    const usersPerHour = 6;
-    const intervalInMs = 3600 * 1000 / usersPerHour;
+    // Daily growth rate of 28%
+    const dailyGrowthRate = 0.28;
+    const growthPerSecond = Math.log(1 + dailyGrowthRate) / (24 * 60 * 60);
+
+    const initialCount = 1236;
+    const startTime = Date.now();
 
     const interval = setInterval(() => {
-      setUserCount(prev => prev + 1);
-    }, intervalInMs);
+      const elapsedTimeInSeconds = (Date.now() - startTime) / 1000;
+      
+      // Calculate the base growth
+      const baseCount = initialCount * Math.exp(growthPerSecond * elapsedTimeInSeconds);
+
+      // Add fluctuation
+      const fluctuation = (Math.random() - 0.5) * 4; // Fluctuates by +/- 2
+      
+      setUserCount(Math.floor(baseCount + fluctuation));
+    }, 2000); // Update every 2 seconds
 
     return () => clearInterval(interval);
   }, [isClient]);
