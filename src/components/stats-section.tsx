@@ -19,8 +19,15 @@ const StatCard = ({ icon, value, label, unit }: { icon: React.ReactNode, value: 
 
 export function StatsSection() {
   const [userCount, setUserCount] = useState(1236);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) return;
+
     const usersPerHour = 6;
     const intervalInMs = 3600 * 1000 / usersPerHour;
 
@@ -29,7 +36,7 @@ export function StatsSection() {
     }, intervalInMs);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isClient]);
 
   return (
     <section className="bg-card py-12 sm:py-16 border-y">
@@ -37,7 +44,7 @@ export function StatsSection() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
           <StatCard
             icon={<Users className="h-8 w-8" />}
-            value={userCount.toLocaleString()}
+            value={isClient ? userCount.toLocaleString() : '1,236'}
             label="Active Traders"
           />
           <StatCard

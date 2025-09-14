@@ -11,12 +11,15 @@ const SoldTicker = ({ start, ratePerSecond, label }: { start: number, ratePerSec
     const [count, setCount] = useState(start);
 
     useEffect(() => {
+        const initialValue = start;
+        setCount(initialValue);
+    
         const interval = setInterval(() => {
-            setCount(prev => prev + 1);
-        }, 1000 / (ratePerSecond));
+            setCount(prev => prev + (ratePerSecond / 10)); // Update more frequently for smoother visual
+        }, 100);
 
         return () => clearInterval(interval);
-    }, [ratePerSecond]);
+    }, [start, ratePerSecond]);
     
     return (
         <div className="mt-4 text-sm font-semibold text-accent">
