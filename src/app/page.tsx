@@ -7,6 +7,7 @@ import { TestimonialsTicker } from "@/components/testimonials-ticker";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { SignUpToast } from "@/components/signup-toast";
+import { SignupChatbot } from "@/components/signup-chatbot";
 
 export default async function Home() {
   const slogan = "These are not your Grandfather's trading bots.";
@@ -32,6 +33,7 @@ export default async function Home() {
       <TestimonialsTicker testimonials={testimonials} />
       <Footer />
       <SignUpToast />
+      <SignupChatbot />
     </div>
   );
 }
