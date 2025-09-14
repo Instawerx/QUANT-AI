@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
 import { LiveGainsTicker } from '@/components/live-gains-ticker';
 import { WalletProvider } from '@/context/wallet-context';
+import { SignUpToast } from '@/components/signup-toast';
 
 export const metadata: Metadata = {
   title: 'QuantTrade AI',
@@ -26,6 +27,7 @@ export default function RootLayout({
         <WalletProvider>
           {children}
           <Toaster />
+          <SignUpToast />
           <LiveGainsTicker />
         </WalletProvider>
       </body>

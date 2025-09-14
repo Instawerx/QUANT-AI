@@ -6,7 +6,6 @@ import { FeaturesSection } from "@/components/features-section";
 import { TestimonialsTicker } from "@/components/testimonials-ticker";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
-import { SignUpToast } from "@/components/signup-toast";
 import { SignupChatbot } from "@/components/signup-chatbot";
 import { FaqSection } from "@/components/faq-section";
 import { DynamicContent } from "@/components/dynamic-content";
@@ -40,7 +39,6 @@ export default function Home() {
         </DynamicContent>
       </main>
       <Footer />
-      <SignUpToast />
       <SignupChatbot />
     </div>
   );

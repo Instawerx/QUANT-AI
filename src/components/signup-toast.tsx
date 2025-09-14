@@ -4,17 +4,23 @@ import { useState, useEffect } from 'react';
 import { Card } from './ui/card';
 import { UserPlus } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { generateRecentGains, RecentGain } from '@/ai/flows/generate-recent-gains';
 
-const names = [
-  "Alex", "Jordan", "Taylor", "Morgan", "Casey", "Riley", "Jesse", "Jamie", "Skyler", "Dakota"
-];
+// Helper to get a random city
 const cities = [
   "New York", "London", "Tokyo", "Paris", "Singapore", "Hong Kong", "Dubai", "Sydney", "Toronto", "Berlin"
 ];
-
 function getRandomElement<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
+
+// Name generation can be a simple client-side function
+function generateRandomName() {
+    const syllables1 = ["Alex", "Jor", "Tay", "Mor", "Ca"];
+    const syllables2 = ["dan", "lor", "gan", "sey", "ley"];
+    return getRandomElement(syllables1) + getRandomElement(syllables2);
+}
+
 
 export function SignUpToast() {
   const [visible, setVisible] = useState(false);
@@ -27,8 +33,10 @@ export function SignUpToast() {
     const scheduleShow = () => {
       const randomInterval = Math.random() * 8000 + 4000; // between 4-12 seconds
       showTimeout = setTimeout(() => {
+        // We can still randomize the name/city on the client to give it variety
+        // without needing an API call for every single toast.
         setContent({
-          name: getRandomElement(names),
+          name: generateRandomName(),
           city: getRandomElement(cities),
         });
         setVisible(true);
@@ -43,8 +51,10 @@ export function SignUpToast() {
       }, randomInterval);
     };
 
+    // Start the cycle
     scheduleShow();
 
+    // Cleanup on component unmount
     return () => {
       clearTimeout(showTimeout);
       clearTimeout(hideTimeout);
@@ -54,7 +64,7 @@ export function SignUpToast() {
 
   return (
     <div className={cn(
-      "fixed bottom-4 left-4 z-50 transition-all duration-500",
+      "fixed bottom-20 left-4 z-50 transition-all duration-500 w-full max-w-xs sm:max-w-sm",
       visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5 pointer-events-none"
     )}>
       <Card className="p-3 bg-card border-border shadow-lg">
