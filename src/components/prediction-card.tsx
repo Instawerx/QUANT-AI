@@ -4,6 +4,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { ArrowUp, ArrowDown, History, TrendingUp, TrendingDown } from "lucide-react";
 import { BnbPrice } from './bnb-price';
+import { useWallet } from '@/context/wallet-context';
+import { useToast } from '@/hooks/use-toast';
 
 type Round = {
   id: number;
@@ -24,6 +26,24 @@ export function PredictionCard() {
   const [prizePoolUp, setPrizePoolUp] = useState(0);
   const [prizePoolDown, setPrizePoolDown] = useState(0);
   const [priceStatus, setPriceStatus] = useState<'up' | 'down' | 'initial'>('initial');
+  const { account } = useWallet();
+  const { toast } = useToast();
+
+  const handleEnterPrediction = (direction: 'UP' | 'DOWN') => {
+    if (!account) {
+      toast({
+        title: "Connect Wallet",
+        description: "Please connect your wallet to enter a prediction.",
+        variant: "default",
+      });
+      return;
+    }
+    // Placeholder for actual prediction logic
+    toast({
+      title: `Prediction Entered: ${direction}`,
+      description: "Your prediction has been recorded. Good luck!",
+    });
+  };
 
   const startNewRound = useCallback((price: number | null) => {
     setIsLive(true);
@@ -105,7 +125,7 @@ export function PredictionCard() {
             </div>
             <p className="text-sm text-muted-foreground mb-1">Prize Pool</p>
             <p className="text-2xl font-bold mb-4">{prizePoolUp.toFixed(3)} BNB</p>
-            <Button className="w-full bg-green-500 hover:bg-green-600 text-white" disabled={!isLive}>Enter UP</Button>
+            <Button className="w-full bg-green-500 hover:bg-green-600 text-white" disabled={!isLive} onClick={() => handleEnterPrediction('UP')}>Enter UP</Button>
           </div>
           <div className="p-6 bg-gradient-to-b from-red-500/10 to-transparent">
             <div className="flex items-center justify-between mb-4">
@@ -114,7 +134,7 @@ export function PredictionCard() {
             </div>
             <p className="text-sm text-muted-foreground mb-1">Prize Pool</p>
             <p className="text-2xl font-bold mb-4">{prizePoolDown.toFixed(3)} BNB</p>
-            <Button className="w-full bg-red-500 hover:bg-red-600 text-white" disabled={!isLive}>Enter DOWN</Button>
+            <Button className="w-full bg-red-500 hover:bg-red-600 text-white" disabled={!isLive} onClick={() => handleEnterPrediction('DOWN')}>Enter DOWN</Button>
           </div>
         </div>
         <div className="p-4 border-t">

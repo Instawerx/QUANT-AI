@@ -1,22 +1,15 @@
 "use client";
-import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Wallet } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
-import { cn } from '@/lib/utils';
-
-declare global {
-  interface Window {
-    ethereum?: any;
-  }
-}
+import { useWallet } from '@/context/wallet-context';
 
 export function ConnectWalletButton() {
   const { toast } = useToast();
-  const [account, setAccount] = useState<string | null>(null);
+  const { account, setAccount } = useWallet();
 
   const handleConnect = async () => {
-    if (!window.ethereum) {
+    if (!(window as any).ethereum) {
       toast({
         title: "MetaMask Not Detected",
         description: "Please install the MetaMask extension to connect your wallet.",
@@ -26,7 +19,7 @@ export function ConnectWalletButton() {
     }
 
     try {
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const accounts = await (window as any).ethereum.request({ method: 'eth_requestAccounts' });
       if (accounts.length > 0) {
         setAccount(accounts[0]);
         toast({
