@@ -42,17 +42,12 @@ export default async function Home() {
 
     slogan = marketingInfo.marketingContent.split('Slogan: "')[1].split('"')[0];
     mainContent = marketingInfo.marketingContent.split('"\n\n')[1];
-  } catch (error) {
-    console.error("Error generating marketing content:", error);
-    // Fallback content is already set
-  }
 
-  try {
     const testimonialsData = await simulateUserTestimonials({});
     testimonials = testimonialsData.testimonials.map(t => t.testimonial);
-  } catch(error) {
-    console.error("Error generating testimonials:", error);
-    // Fallback content is already set
+  } catch (error) {
+    console.error("Error generating dynamic page content:", error);
+    // Fallback content is already set, so we can just log the error and continue.
   }
 
 
