@@ -9,17 +9,31 @@ import { Footer } from "@/components/footer";
 import { SignUpToast } from "@/components/signup-toast";
 import { SignupChatbot } from "@/components/signup-chatbot";
 import { FaqSection } from "@/components/faq-section";
+import { generateMarketingContent } from "@/ai/flows/generate-marketing-content";
+import { simulateUserTestimonials } from "@/ai/flows/simulate-user-testimonials";
 
 export default async function Home() {
-  const slogan = "These are not your Grandfather's trading bots.";
-  const mainContent = "Unparalleled success rates with our Multi LLM Neural Network and real time monitoring via our cloud infrastructure.";
-  const testimonials = [
-    "QuantTrade AI has revolutionized my trading strategy, delivering consistent profits with its advanced AI.",
-    "As a seasoned trader, I'm impressed by the accuracy and reliability of QuantTrade AI's algorithms.",
-    "The real-time monitoring and cloud infrastructure provide peace of mind and exceptional performance.",
-    "I've seen a 4% hourly growth in my portfolio since I started using QuantTrade AI's automated trading.",
-    "The platform is intuitive and powerful, making it the best trading tool I've ever used."
-  ];
+  const marketingInfo = await generateMarketingContent({
+    productName: "QuantTrade AI",
+    uniqueFeatures: [
+      "Multi-LLM Neural Network",
+      "Automated Algo-Trading Bots",
+      "Resilient Cloud Infrastructure",
+      "Real-Time Monitoring",
+    ],
+    advantages: [
+      "Unparalleled success rates",
+      "24/7 automated trading",
+      "High-availability and scalability",
+      "Live portfolio and AI performance tracking",
+    ],
+  });
+
+  const slogan = marketingInfo.marketingContent.split('Slogan: "')[1].split('"')[0];
+  const mainContent = marketingInfo.marketingContent.split('"\n\n')[1];
+  
+  const testimonialsData = await simulateUserTestimonials({});
+  const testimonials = testimonialsData.testimonials.map(t => t.testimonial);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -29,10 +43,10 @@ export default async function Home() {
         <StatsSection />
         <TradingChartSection />
         <FeaturesSection />
+        <TestimonialsTicker testimonials={testimonials} />
         <CtaSection />
         <FaqSection />
       </main>
-      <TestimonialsTicker testimonials={testimonials} />
       <Footer />
       <SignUpToast />
       <SignupChatbot />
