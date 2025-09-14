@@ -8,6 +8,7 @@ import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
 import { SignUpToast } from "@/components/signup-toast";
 import { SignupChatbot } from "@/components/signup-chatbot";
+import { FaqSection } from "@/components/faq-section";
 
 export default async function Home() {
   const slogan = "These are not your Grandfather's trading bots.";
@@ -29,6 +30,7 @@ export default async function Home() {
         <TradingChartSection />
         <FeaturesSection />
         <CtaSection />
+        <FaqSection />
       </main>
       <TestimonialsTicker testimonials={testimonials} />
       <Footer />
