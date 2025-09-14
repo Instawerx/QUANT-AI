@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -20,7 +21,7 @@ export function PredictionCard() {
   const ROUND_DURATION = 300; // 5 minutes
   const [timeLeft, setTimeLeft] = useState(ROUND_DURATION);
   const [isLive, setIsLive] = useState(true);
-  const [roundId, setRoundId] = useState(Math.floor(Math.random() * 1000) + 12000);
+  const [roundId, setRoundId] = useState(12000);
   const [lockedPrice, setLockedPrice] = useState<number | null>(null);
   const [currentPrice, setCurrentPrice] = useState<number | null>(null);
   const [prizePoolUp, setPrizePoolUp] = useState(0);
@@ -28,6 +29,13 @@ export function PredictionCard() {
   const [priceStatus, setPriceStatus] = useState<'up' | 'down' | 'initial'>('initial');
   const { account } = useWallet();
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Generate random numbers only on the client side to avoid hydration errors
+    setRoundId(Math.floor(Math.random() * 1000) + 12000);
+    setPrizePoolUp(Math.random() * 10 + 5); 
+    setPrizePoolDown(Math.random() * 10 + 5);
+  }, []);
 
   const handleEnterPrediction = (direction: 'UP' | 'DOWN') => {
     if (!account) {
@@ -163,3 +171,5 @@ export function PredictionCard() {
     </Card>
   );
 }
+
+    
