@@ -7,13 +7,14 @@ import { Menu } from "lucide-react";
 
 export function Header() {
   const navItems = [
-    { name: "Features", href: "#features" },
-    { name: "Chart", href: "#chart" },
+    { name: "Features", href: "/#features" },
+    { name: "Products", href: "/products" },
+    { name: "Chart", href: "/#chart" },
     { name: "Prediction", href: "/prediction" },
     { name: "Crypto", href: "/crypto" },
     { name: "FX Trading", href: "/fx-trading" },
     { name: "Futures & Options", href: "/futures-and-options" },
-    { name: "Start Trial", href: "#cta" },
+    { name: "Start Trial", href: "/#cta" },
   ];
 
   return (
