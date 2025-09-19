@@ -1,0 +1,17 @@
+version: 1
+agents:
+  - id: master
+    role: Master Planner
+    tools: [git, bash, node, docker]
+  - id: gcp
+    role: GCP/Firebase Engineer
+    tools: [gcloud, firebase, bash, docker]
+  - id: solidity
+    role: Smart Contracts Engineer
+    tools: [node, bash]
+  - id: web
+    role: Web3 Frontend Engineer
+    tools: [node, bash]
+  - id: sre
+    role: Observability/Platform
+    tools: [bash, gcloud]
