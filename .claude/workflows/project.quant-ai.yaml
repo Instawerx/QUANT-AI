@@ -7,7 +7,7 @@ iteration_order:
   - "020_firestore_setup.md"
   - "030_contracts_scaffold.md"
   - "040_tests_and_ci.md"
-  - "0050_cloudbuild_cloudrun.md
+  - " "050_cloudbuild_cloudrun.md"
   - "060_frontend_wallet.md"
   - "070_observability.md"
   - "080_contracts_portfolio_manager.md"
@@ -15,6 +15,8 @@ iteration_order:
   - "100_multilanguage_translations.md"
   - "110_databases.md"
   - "120_frontend_completion.md"
+    - "130_context_engineering.md"
+   
 policies:
   max_iterations: 1
   fail_fast: true
