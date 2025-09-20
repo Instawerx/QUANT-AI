@@ -1,0 +1,34 @@
+[debug] [2025-09-20T06:44:33.013Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2025-09-20T06:44:37.245Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2025-09-20T06:44:37.246Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-20T06:44:37.247Z] > authorizing via signed-in user (vrdivebar@gmail.com)
+[debug] [2025-09-20T06:44:37.249Z] Checked if tokens are valid: false, expires at: 1758340789171
+[debug] [2025-09-20T06:44:37.249Z] Checked if tokens are valid: false, expires at: 1758340789171
+[debug] [2025-09-20T06:44:37.249Z] > refreshing access token with scopes: []
+[debug] [2025-09-20T06:44:37.250Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2025-09-20T06:44:37.250Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-20T06:44:37.257Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting Data Connect toolkit (version 2.13.0) on port 50001
+[debug] [2025-09-20T06:44:38.036Z] 'fdc build' failed with error: Unable to build your Data Connect schema and connectors (exit code 1): E0920 01:44:38.033394   32920 cmd.go:43] Error loading data connect config: could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"'fdc build' failed with error: Unable to build your Data Connect schema and connectors (exit code 1): E0920 01:44:38.033394   32920 cmd.go:43] Error loading data connect config: could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:44:38.037Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-09-20T06:44:38.037Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2025-09-20T06:44:38.037Z] Starting Data Connect Emulator with command {"binary":"C:\\Users\\tabor\\.cache\\firebase\\emulators\\dataconnect-emulator-2.13.0.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50001","--config_dir=c:\\QuantAI\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\tabor\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-2.13.0.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50001\",\"--config_dir=c:\\\\QuantAI\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2025-09-20T06:44:38.135Z] E0920 01:44:38.058313   29816 dev.go:79] Failed to load initial config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+E0920 01:44:38.058920   29816 watch.go:102] watchAllDir unable to walk dir `c:\QuantAI\dataconnect`: CreateFile c:\QuantAI\dataconnect: The system cannot find the file specified.
+I0920 01:44:38.067016   29816 dev.go:102] Listening on address (HTTP + gRPC): 127.0.0.1:50001
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:44:38.058313   29816 dev.go:79] Failed to load initial config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\nE0920 01:44:38.058920   29816 watch.go:102] watchAllDir unable to walk dir `c:\\QuantAI\\dataconnect`: CreateFile c:\\QuantAI\\dataconnect: The system cannot find the file specified.\nI0920 01:44:38.067016   29816 dev.go:102] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
+[debug] [2025-09-20T06:44:38.271Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2025-09-20T06:44:38.272Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2025-09-20T06:44:38.290Z] [Firebase Plugin] User found:  vrdivebar@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2025-09-20T06:44:38.290Z] Checked if tokens are valid: true, expires at: 1758354277272
+[debug] [2025-09-20T06:44:38.291Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[error] [Firebase Plugin] error:  {}
+[debug] [2025-09-20T06:44:38.701Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-09-20T06:44:38.701Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2025-09-20T06:44:48.059Z] E0920 01:44:48.059296   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:44:48.059296   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:44:58.059Z] E0920 01:44:58.059452   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:44:58.059452   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}

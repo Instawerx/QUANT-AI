@@ -1,0 +1,113 @@
+# Google Cloud Configuration for QuantAI Platform
+# This file contains configuration for Google Cloud services
+
+project_id: "studio-5150539807-1dba3"
+region: "us-central1"
+zone: "us-central1-a"
+
+# App Engine Configuration
+app_engine:
+  runtime: "nodejs18"
+  instance_class: "F4_1G"
+  automatic_scaling:
+    min_instances: 0
+    max_instances: 10
+    target_cpu_utilization: 0.6
+
+# Cloud Run Configuration
+cloud_run:
+  platform: "managed"
+  region: "us-central1"
+  allow_unauthenticated: true
+  memory: "2Gi"
+  cpu: "1000m"
+  max_instances: 100
+  concurrency: 80
+
+# Firebase Configuration
+firebase:
+  hosting:
+    public: "out"
+    ignore:
+      - "firebase.json"
+      - "**/.*"
+      - "**/node_modules/**"
+  firestore:
+    rules: "firestore.rules"
+    indexes: "firestore.indexes.json"
+
+# Cloud Functions Configuration
+cloud_functions:
+  runtime: "nodejs18"
+  memory: "256MB"
+  timeout: "60s"
+  max_instances: 10
+  environment_variables:
+    NODE_ENV: "production"
+
+# Cloud Storage Configuration
+storage:
+  buckets:
+    - name: "quantai-static-assets"
+      location: "US"
+      storage_class: "STANDARD"
+    - name: "quantai-user-data"
+      location: "US"
+      storage_class: "STANDARD"
+    - name: "quantai-backups"
+      location: "US"
+      storage_class: "COLDLINE"
+
+# Cloud SQL Configuration (if needed)
+cloud_sql:
+  instance_id: "quantai-db"
+  region: "us-central1"
+  tier: "db-f1-micro"
+  database_version: "POSTGRES_14"
+
+# IAM Roles and Permissions
+iam:
+  service_accounts:
+    - name: "quantai-app-service-account"
+      roles:
+        - "roles/datastore.user"
+        - "roles/storage.objectAdmin"
+        - "roles/cloudtrace.agent"
+        - "roles/monitoring.metricWriter"
+    - name: "quantai-deployment-service-account"
+      roles:
+        - "roles/appengine.deployer"
+        - "roles/cloudbuild.builds.builder"
+        - "roles/storage.admin"
+
+# Monitoring and Logging
+monitoring:
+  enable_cloud_monitoring: true
+  enable_cloud_trace: true
+  enable_cloud_profiler: true
+  alert_policies:
+    - name: "High Error Rate"
+      condition: "error_rate > 5%"
+      notification_channels: ["email"]
+    - name: "High Response Time"
+      condition: "response_time > 2s"
+      notification_channels: ["email", "slack"]
+
+# Security Configuration
+security:
+  enable_cloud_armor: true
+  enable_ssl: true
+  force_https: true
+  csp_header: "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline'"
+
+# Build Configuration
+build:
+  source: "."
+  steps:
+    - name: "gcr.io/cloud-builders/npm"
+      args: ["ci"]
+    - name: "gcr.io/cloud-builders/npm"
+      args: ["run", "build"]
+    - name: "gcr.io/cloud-builders/npm"
+      args: ["run", "test"]
+  timeout: "1200s"

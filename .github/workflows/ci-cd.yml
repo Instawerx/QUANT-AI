@@ -1,0 +1,310 @@
+name: QuantAI CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: '18'
+  REGISTRY: ghcr.io
+  IMAGE_NAME: quantai
+
+jobs:
+  # Security and code quality checks
+  security-audit:
+    name: Security Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run security audit
+        run: npm audit --audit-level=high
+
+      - name: Run vulnerability scan
+        run: npm audit --fix --dry-run
+
+  # Lint and type checking
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript checks
+        run: npm run typecheck
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run Solidity linting
+        run: npm run lint:sol
+
+  # Smart contract testing
+  smart-contract-tests:
+    name: Smart Contract Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Compile smart contracts
+        run: npm run contracts:compile
+
+      - name: Run smart contract tests
+        run: npm run test
+        env:
+          NODE_ENV: test
+
+      - name: Generate test coverage
+        run: npm run test:coverage
+
+      - name: Upload coverage reports
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          fail_ci_if_error: true
+
+  # Frontend build and test
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+    needs: [security-audit, code-quality]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_TELEMETRY_DISABLED: 1
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            .next/
+            out/
+          retention-days: 7
+
+  # Deploy to staging on develop branch
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [smart-contract-tests, frontend-build]
+    if: github.ref == 'refs/heads/develop'
+    environment: staging
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_CHAIN_ID: 11155111 # Sepolia testnet
+
+      - name: Deploy smart contracts to testnet
+        run: npm run contracts:deploy:sepolia
+        env:
+          PRIVATE_KEY: ${{ secrets.STAGING_DEPLOYER_PRIVATE_KEY }}
+          INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          TREASURY_WALLET_ADDRESS: ${{ secrets.STAGING_TREASURY_WALLET }}
+          FEE_COLLECTOR_ADDRESS: ${{ secrets.STAGING_FEE_COLLECTOR }}
+
+      - name: Verify contracts on Etherscan
+        run: npm run contracts:verify
+        env:
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+
+      - name: Deploy to Firebase Hosting (staging)
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STAGING }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID_STAGING }}
+          channelId: staging
+
+  # Deploy to production on main branch
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [smart-contract-tests, frontend-build]
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_CHAIN_ID: 1 # Ethereum mainnet
+
+      - name: Deploy smart contracts to mainnet
+        run: npm run contracts:deploy
+        env:
+          PRIVATE_KEY: ${{ secrets.PRODUCTION_DEPLOYER_PRIVATE_KEY }}
+          INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          TREASURY_WALLET_ADDRESS: ${{ secrets.PRODUCTION_TREASURY_WALLET }}
+          FEE_COLLECTOR_ADDRESS: ${{ secrets.PRODUCTION_FEE_COLLECTOR }}
+        # Only deploy contracts if they don't exist
+        continue-on-error: true
+
+      - name: Verify contracts on Etherscan
+        run: npm run contracts:verify
+        env:
+          ETHERSCAN_API_KEY: ${{ secrets.ETHERSCAN_API_KEY }}
+
+      - name: Deploy to Firebase Hosting (production)
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID_PRODUCTION }}
+
+      - name: Create GitHub release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ github.run_number }}
+          release_name: Release v${{ github.run_number }}
+          body: |
+            Changes in this Release:
+            - Automated deployment from commit ${{ github.sha }}
+            - Smart contracts deployed to mainnet
+            - Frontend deployed to production
+          draft: false
+          prerelease: false
+
+  # Automated monitoring and health checks
+  post-deployment-checks:
+    name: Post-Deployment Health Checks
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Wait for deployment to be live
+        run: sleep 60
+
+      - name: Health check - Frontend
+        run: |
+          curl -f ${{ secrets.PRODUCTION_URL }}/api/health || exit 1
+
+      - name: Health check - Smart contracts
+        run: |
+          npm ci
+          npm run contracts:health-check
+        env:
+          INFURA_API_KEY: ${{ secrets.INFURA_API_KEY }}
+          CONTRACT_ADDRESS: ${{ secrets.PRODUCTION_CONTRACT_ADDRESS }}
+
+      - name: Performance test
+        run: |
+          npm install -g lighthouse
+          lighthouse ${{ secrets.PRODUCTION_URL }} --output=json --output-path=./lighthouse-report.json
+
+      - name: Upload performance report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-report
+          path: lighthouse-report.json
+
+  # Automated security scanning
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: [deploy-production]
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+      - name: Smart contract security audit
+        run: |
+          npm ci
+          npm install -g slither-analyzer
+          slither contracts/ --json slither-report.json || true
+
+      - name: Upload audit report
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-audit-report
+          path: slither-report.json

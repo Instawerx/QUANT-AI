@@ -16,6 +16,8 @@
     "contracts:compile": "hardhat compile",
     "contracts:deploy": "hardhat run scripts/deploy.ts",
     "contracts:deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia",
+    "contracts:deploy:mission": "hardhat run scripts/deploy-mission.ts",
+    "contracts:deploy:mission:sepolia": "hardhat run scripts/deploy-mission.ts --network sepolia",
     "contracts:deploy:portfolio": "hardhat run scripts/deploy_portfolio.ts",
     "contracts:deploy:portfolio:sepolia": "hardhat run scripts/deploy_portfolio.ts --network sepolia",
     "contracts:verify": "hardhat run scripts/verify.ts",
