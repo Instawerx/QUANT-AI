@@ -34,3 +34,102 @@ I0920 01:44:38.067016   29816 dev.go:102] Listening on address (HTTP + gRPC): 12
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:44:58.059452   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
 [debug] [2025-09-20T06:45:08.059Z] E0920 01:45:08.059431   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:45:08.059431   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:45:18.059Z] E0920 01:45:18.059458   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:45:18.059458   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:45:28.059Z] E0920 01:45:28.059276   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:45:28.059276   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:45:38.059Z] E0920 01:45:38.059195   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:45:38.059195   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:45:48.060Z] E0920 01:45:48.059811   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:45:48.059811   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:45:49.712Z] [Firebase Plugin] Value of process.env.MONOSPACE_ENV: undefined
+[debug] [2025-09-20T06:45:49.712Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2025-09-20T06:45:49.713Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-20T06:45:49.713Z] > authorizing via signed-in user (vrdivebar@gmail.com)
+[debug] [2025-09-20T06:45:49.713Z] Checked if tokens are valid: true, expires at: 1758354277272
+[debug] [2025-09-20T06:45:49.713Z] [Firebase Plugin] User found:  vrdivebar@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2025-09-20T06:45:49.714Z] Checked if tokens are valid: true, expires at: 1758354277272
+[debug] [2025-09-20T06:45:49.715Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2025-09-20T06:45:49.720Z] [Firebase Plugin] Value of process.env.MONOSPACE_ENV: undefined
+[debug] [2025-09-20T06:45:49.720Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2025-09-20T06:45:49.720Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-20T06:45:49.721Z] > authorizing via signed-in user (vrdivebar@gmail.com)
+[debug] [2025-09-20T06:45:49.721Z] Checked if tokens are valid: true, expires at: 1758354277272
+[debug] [2025-09-20T06:45:49.721Z] [Firebase Plugin] User found:  vrdivebar@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2025-09-20T06:45:49.721Z] Checked if tokens are valid: true, expires at: 1758354277272
+[debug] [2025-09-20T06:45:49.722Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2025-09-20T06:45:49.726Z] Emulator locator file path: C:\Users\tabor\AppData\Local\Temp\hub-studio-5150539807-1dba3.json
+[debug] [2025-09-20T06:45:50.082Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-09-20T06:45:50.082Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2025-09-20T06:45:50.185Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-09-20T06:45:50.186Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2025-09-20T06:45:58.059Z] E0920 01:45:58.059261   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:45:58.059261   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:46:08.059Z] E0920 01:46:08.059286   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:46:08.059286   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:46:18.059Z] E0920 01:46:18.059537   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:46:18.059537   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:46:28.059Z] E0920 01:46:28.059242   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:46:28.059242   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:46:38.059Z] E0920 01:46:38.059107   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+E0920 01:46:38.059107   29816 watch.go:102] watchAllDir unable to walk dir `c:\QuantAI\dataconnect`: CreateFile c:\QuantAI\dataconnect: The system cannot find the file specified.
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:46:38.059107   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\nE0920 01:46:38.059107   29816 watch.go:102] watchAllDir unable to walk dir `c:\\QuantAI\\dataconnect`: CreateFile c:\\QuantAI\\dataconnect: The system cannot find the file specified.\n"}}
+[debug] [2025-09-20T06:46:48.061Z] E0920 01:46:48.061141   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:46:48.061141   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:46:58.060Z] E0920 01:46:58.060170   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:46:58.060170   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:47:08.059Z] E0920 01:47:08.059158   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:47:08.059158   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:47:18.133Z] I0920 01:47:18.133206   29816 load.go:31] Reloading schema and connectors...
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:18.133206   29816 load.go:31] Reloading schema and connectors...\n"}}
+[debug] [2025-09-20T06:47:18.179Z] W0920 01:47:18.178975   29816 control.go:68] [/emulator/quantai 901d] connector "" has errors: input: connector name must not be empty
+
+sources: example\mutations.gql [1243B] example\queries.gql [1801B] 
+I0920 01:47:18.178975   29816 control.go:94] [/emulator/quantai 901d] UpdateResources(): done
+Schema: sources: schema\schema.gql [1992B] 
+Connector "": sources: example\mutations.gql [1243B] example\queries.gql [1801B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"W0920 01:47:18.178975   29816 control.go:68] [/emulator/quantai 901d] connector \"\" has errors: input: connector name must not be empty\n\nsources: example\\mutations.gql [1243B] example\\queries.gql [1801B] \nI0920 01:47:18.178975   29816 control.go:94] [/emulator/quantai 901d] UpdateResources(): done\nSchema: sources: schema\\schema.gql [1992B] \nConnector \"\": sources: example\\mutations.gql [1243B] example\\queries.gql [1801B] \n"}}
+[debug] [2025-09-20T06:47:18.181Z] E0920 01:47:18.180974   29816 load.go:73] Could not load sources: 
+Errors: input: connector name must not be empty
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:47:18.180974   29816 load.go:73] Could not load sources: \nErrors: input: connector name must not be empty\n"}}
+[debug] [2025-09-20T06:47:18.185Z] I0920 01:47:18.185520   29816 collector.go:107] schema extensions wrote into "c:\\QuantAI\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [73251B] main\implicit.gql [1261B] main\input.gql [28173B] main\relation.gql [13746B] main\query.gql [5099B] main\mutation.gql [13679B] 
+I0920 01:47:18.185520   29816 load.go:74] Finished reloading
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:18.185520   29816 collector.go:107] schema extensions wrote into \"c:\\\\QuantAI\\\\dataconnect\\\\.dataconnect\\\\schema\"\nGenerated sources: prelude.gql [73251B] main\\implicit.gql [1261B] main\\input.gql [28173B] main\\relation.gql [13746B] main\\query.gql [5099B] main\\mutation.gql [13679B] \nI0920 01:47:18.185520   29816 load.go:74] Finished reloading\n"}}
+[debug] [2025-09-20T06:47:28.061Z] I0920 01:47:28.061272   29816 load.go:31] Reloading schema and connectors...
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.061272   29816 load.go:31] Reloading schema and connectors...\n"}}
+[debug] [2025-09-20T06:47:28.077Z] I0920 01:47:28.077609   29816 control.go:94] [/emulator/quantai 901d] UpdateResources(): done
+Connector "example": sources: example\mutations.gql [1243B] example\queries.gql [1801B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.077609   29816 control.go:94] [/emulator/quantai 901d] UpdateResources(): done\nConnector \"example\": sources: example\\mutations.gql [1243B] example\\queries.gql [1801B] \n"}}
+[debug] [2025-09-20T06:47:28.102Z] I0920 01:47:28.103070   29816 codegen.go:82] [connector "example" javascriptSdk] Generating sources into "c:\\QuantAI\\src\\dataconnect-generated"
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.103070   29816 codegen.go:82] [connector \"example\" javascriptSdk] Generating sources into \"c:\\\\QuantAI\\\\src\\\\dataconnect-generated\"\n"}}
+[debug] [2025-09-20T06:47:28.108Z] I0920 01:47:28.108878   29816 codegen.go:82] [connector "example" javascriptSdk] Generating sources into "c:\\QuantAI\\QUANT-AI-main\\src\\dataconnect-generated"
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.108878   29816 codegen.go:82] [connector \"example\" javascriptSdk] Generating sources into \"c:\\\\QuantAI\\\\QUANT-AI-main\\\\src\\\\dataconnect-generated\"\n"}}
+[debug] [2025-09-20T06:47:28.118Z] I0920 01:47:28.118201   29816 codegen.go:82] [connector "example" javascriptSdk] Generating sources into "c:\\QuantAI\\backend\\src\\dataconnect-generated"
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.118201   29816 codegen.go:82] [connector \"example\" javascriptSdk] Generating sources into \"c:\\\\QuantAI\\\\backend\\\\src\\\\dataconnect-generated\"\n"}}
+[debug] [2025-09-20T06:47:28.125Z] I0920 01:47:28.124785   29816 collector.go:107] schema extensions wrote into "c:\\QuantAI\\dataconnect\\.dataconnect\\schema"
+Generated sources: prelude.gql [73251B] main\relation.gql [13746B] main\query.gql [5099B] main\mutation.gql [13679B] main\implicit.gql [1261B] main\input.gql [28173B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.124785   29816 collector.go:107] schema extensions wrote into \"c:\\\\QuantAI\\\\dataconnect\\\\.dataconnect\\\\schema\"\nGenerated sources: prelude.gql [73251B] main\\relation.gql [13746B] main\\query.gql [5099B] main\\mutation.gql [13679B] main\\implicit.gql [1261B] main\\input.gql [28173B] \n"}}
+[debug] [2025-09-20T06:47:28.135Z] I0920 01:47:28.134710   29816 collector.go:107] connector "example" javascriptSdk wrote into "c:\\QuantAI\\src\\dataconnect-generated"
+Generated sources: index.cjs.js [4050B] package.json [863B] react\esm\package.json [17B] react\esm\index.esm.js [3269B] esm\index.esm.js [3560B] esm\package.json [17B] README.md [40931B] react\index.d.ts [3961B] react\package.json [460B] react\index.cjs.js [3439B] react\README.md [48299B] index.d.ts [8025B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.134710   29816 collector.go:107] connector \"example\" javascriptSdk wrote into \"c:\\\\QuantAI\\\\src\\\\dataconnect-generated\"\nGenerated sources: index.cjs.js [4050B] package.json [863B] react\\esm\\package.json [17B] react\\esm\\index.esm.js [3269B] esm\\index.esm.js [3560B] esm\\package.json [17B] README.md [40931B] react\\index.d.ts [3961B] react\\package.json [460B] react\\index.cjs.js [3439B] react\\README.md [48299B] index.d.ts [8025B] \n"}}
+[debug] [2025-09-20T06:47:28.153Z] I0920 01:47:28.153336   29816 installsdk.go:86] Running command: C:\Program Files\nodejs\npm.cmd install file:src\dataconnect-generated
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:28.153336   29816 installsdk.go:86] Running command: C:\\Program Files\\nodejs\\npm.cmd install file:src\\dataconnect-generated\n"}}
+[debug] [2025-09-20T06:47:32.221Z] E0920 01:47:32.221004   29816 installsdk.go:88] Failed to install package: exit status 1
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:47:32.221004   29816 installsdk.go:88] Failed to install package: exit status 1\n"}}
+[debug] [2025-09-20T06:47:32.229Z] I0920 01:47:32.229978   29816 collector.go:107] connector "example" javascriptSdk wrote into "c:\\QuantAI\\QUANT-AI-main\\src\\dataconnect-generated"
+Generated sources: esm\index.esm.js [3560B] index.cjs.js [4050B] README.md [40931B] react\index.d.ts [3961B] react\esm\index.esm.js [3269B] react\README.md [48299B] esm\package.json [17B] package.json [863B] react\package.json [460B] react\esm\package.json [17B] react\index.cjs.js [3439B] index.d.ts [8025B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:32.229978   29816 collector.go:107] connector \"example\" javascriptSdk wrote into \"c:\\\\QuantAI\\\\QUANT-AI-main\\\\src\\\\dataconnect-generated\"\nGenerated sources: esm\\index.esm.js [3560B] index.cjs.js [4050B] README.md [40931B] react\\index.d.ts [3961B] react\\esm\\index.esm.js [3269B] react\\README.md [48299B] esm\\package.json [17B] package.json [863B] react\\package.json [460B] react\\esm\\package.json [17B] react\\index.cjs.js [3439B] index.d.ts [8025B] \n"}}
+[debug] [2025-09-20T06:47:32.250Z] I0920 01:47:32.250040   29816 installsdk.go:86] Running command: C:\Program Files\nodejs\npm.cmd install file:src\dataconnect-generated
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:32.250040   29816 installsdk.go:86] Running command: C:\\Program Files\\nodejs\\npm.cmd install file:src\\dataconnect-generated\n"}}
+[debug] [2025-09-20T06:47:51.755Z] E0920 01:47:51.755874   29816 installsdk.go:88] Failed to install package: exit status 0xfffff02d
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:47:51.755874   29816 installsdk.go:88] Failed to install package: exit status 0xfffff02d\n"}}
+[debug] [2025-09-20T06:47:51.760Z] I0920 01:47:51.760098   29816 collector.go:107] connector "example" javascriptSdk wrote into "c:\\QuantAI\\backend\\src\\dataconnect-generated"
+Generated sources: index.cjs.js [4050B] package.json [637B] README.md [40804B] index.d.ts [8025B] esm\index.esm.js [3560B] esm\package.json [17B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:51.760098   29816 collector.go:107] connector \"example\" javascriptSdk wrote into \"c:\\\\QuantAI\\\\backend\\\\src\\\\dataconnect-generated\"\nGenerated sources: index.cjs.js [4050B] package.json [637B] README.md [40804B] index.d.ts [8025B] esm\\index.esm.js [3560B] esm\\package.json [17B] \n"}}
+[debug] [2025-09-20T06:47:51.772Z] I0920 01:47:51.772901   29816 installsdk.go:86] Running command: C:\Program Files\nodejs\npm.cmd install file:src\dataconnect-generated
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:47:51.772901   29816 installsdk.go:86] Running command: C:\\Program Files\\nodejs\\npm.cmd install file:src\\dataconnect-generated\n"}}
+[debug] [2025-09-20T06:48:03.475Z] I0920 01:48:03.475420   29816 load.go:109] Finished reloading
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I0920 01:48:03.475420   29816 load.go:109] Finished reloading\n"}}
