@@ -16,6 +16,8 @@
     "contracts:compile": "hardhat compile",
     "contracts:deploy": "hardhat run scripts/deploy.ts",
     "contracts:deploy:sepolia": "hardhat run scripts/deploy.ts --network sepolia",
+    "contracts:deploy:portfolio": "hardhat run scripts/deploy_portfolio.ts",
+    "contracts:deploy:portfolio:sepolia": "hardhat run scripts/deploy_portfolio.ts --network sepolia",
     "contracts:verify": "hardhat run scripts/verify.ts",
     "lint:sol": "solhint \"contracts/**/*.sol\"",
     "lint:ts": "eslint . --ext .ts,.tsx",
