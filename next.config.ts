@@ -30,13 +30,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  env: {
-    NODE_ENV: process.env.NODE_ENV,
-    PROJECT_ID: process.env.PROJECT_ID,
-  },
-  experimental: {
-    serverComponentsExternalPackages: ['hardhat'],
-  },
+  serverExternalPackages: ['hardhat'],
 };
 
 export default nextConfig;

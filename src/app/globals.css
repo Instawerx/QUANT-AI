@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 @layer base {
@@ -93,5 +97,112 @@ body {
   }
   .glow-green {
     box-shadow: 0 0 15px 5px rgba(0, 230, 118, 0.4), 0 0 5px 1px rgba(0, 230, 118, 0.3);
+  }
+
+  /* QuantTrade AI Brand Colors */
+  .text-brand-purple {
+    color: #A64AC9;
+  }
+  .bg-brand-purple {
+    background-color: #A64AC9;
+  }
+  .text-brand-lime {
+    color: #00E676;
+  }
+  .bg-brand-lime {
+    background-color: #00E676;
+  }
+  .text-brand-dark {
+    color: #222222;
+  }
+  .bg-brand-dark {
+    background-color: #222222;
+  }
+
+  /* Gradient Backgrounds */
+  .gradient-brand {
+    background: linear-gradient(135deg, #A64AC9 0%, #00E676 100%);
+  }
+  .gradient-purple-blue {
+    background: linear-gradient(135deg, #A64AC9 0%, #3B82F6 100%);
+  }
+  .gradient-dark-purple {
+    background: linear-gradient(135deg, #222222 0%, #A64AC9 100%);
+  }
+
+  /* Text Gradients */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #A64AC9 0%, #00E676 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .text-gradient-purple-blue {
+    background: linear-gradient(135deg, #A64AC9 0%, #3B82F6 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Animation Utilities */
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes glow {
+    from {
+      box-shadow: 0 0 10px #A64AC9, 0 0 20px #A64AC9, 0 0 30px #A64AC9;
+    }
+    to {
+      box-shadow: 0 0 20px #A64AC9, 0 0 30px #A64AC9, 0 0 40px #A64AC9;
+    }
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  /* Trading Status Indicators */
+  .status-active {
+    position: relative;
+  }
+  .status-active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    background-color: #00E676;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #A64AC9;
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #8B3FA3;
+  }
+
+  /* Glass Morphism Effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 }

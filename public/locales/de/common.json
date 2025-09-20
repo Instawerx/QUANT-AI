@@ -1,0 +1,14 @@
+{
+  "welcome": "Willkommen",
+  "trading": "Handel",
+  "dashboard": "Dashboard",
+  "portfolio": "Portfolio",
+  "settings": "Einstellungen",
+  "connect_wallet": "Wallet verbinden",
+  "disconnect": "Trennen",
+  "language": "Sprache",
+  "theme": "Thema",
+  "light": "Hell",
+  "dark": "Dunkel",
+  "auto": "Auto"
+}

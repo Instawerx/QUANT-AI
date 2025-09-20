@@ -1,0 +1,14 @@
+{
+  "welcome": "환영합니다",
+  "trading": "거래",
+  "dashboard": "대시보드",
+  "portfolio": "포트폴리오",
+  "settings": "설정",
+  "connect_wallet": "지갑 연결",
+  "disconnect": "연결 해제",
+  "language": "언어",
+  "theme": "테마",
+  "light": "라이트",
+  "dark": "다크",
+  "auto": "자동"
+}

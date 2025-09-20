@@ -1,0 +1,14 @@
+{
+  "welcome": "Bienvenue",
+  "trading": "Trading",
+  "dashboard": "Tableau de bord",
+  "portfolio": "Portefeuille",
+  "settings": "Paramètres",
+  "connect_wallet": "Connecter le portefeuille",
+  "disconnect": "Déconnecter",
+  "language": "Langue",
+  "theme": "Thème",
+  "light": "Clair",
+  "dark": "Sombre",
+  "auto": "Auto"
+}

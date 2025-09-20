@@ -1,0 +1,14 @@
+{
+  "welcome": "مرحباً",
+  "trading": "التداول",
+  "dashboard": "لوحة التحكم",
+  "portfolio": "المحفظة",
+  "settings": "الإعدادات",
+  "connect_wallet": "ربط المحفظة",
+  "disconnect": "قطع الاتصال",
+  "language": "اللغة",
+  "theme": "المظهر",
+  "light": "فاتح",
+  "dark": "داكن",
+  "auto": "تلقائي"
+}

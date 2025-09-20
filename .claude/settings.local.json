@@ -16,7 +16,14 @@
       "Bash(npm run contracts:compile:*)",
       "Bash(npm run lint:*)",
       "Bash(npx solhint:*)",
-      "Bash(gcloud config get-value:*)"
+      "Bash(gcloud config get-value:*)",
+      "WebSearch",
+      "Bash(chmod:*)",
+      "Bash(node:*)",
+      "Bash(npm:*)",
+      "Bash(printf '\\n')",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": []

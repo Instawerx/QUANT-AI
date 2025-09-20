@@ -1,0 +1,14 @@
+{
+  "welcome": "Bem-vindo",
+  "trading": "Negociação",
+  "dashboard": "Painel",
+  "portfolio": "Portfólio",
+  "settings": "Configurações",
+  "connect_wallet": "Conectar carteira",
+  "disconnect": "Desconectar",
+  "language": "Idioma",
+  "theme": "Tema",
+  "light": "Claro",
+  "dark": "Escuro",
+  "auto": "Auto"
+}

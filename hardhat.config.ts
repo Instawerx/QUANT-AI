@@ -1,4 +1,5 @@
 import { HardhatUserConfig } from "hardhat/config";
+import "@nomicfoundation/hardhat-toolbox";
 import "solidity-coverage";
 import "hardhat-gas-reporter";
 import * as dotenv from 'dotenv';
@@ -7,13 +8,26 @@ dotenv.config();
 
 const config: HardhatUserConfig = {
   solidity: {
-    version: "0.8.20",
-    settings: {
-      optimizer: {
-        enabled: true,
-        runs: 200,
+    compilers: [
+      {
+        version: "0.8.20",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
       },
-    },
+      {
+        version: "0.8.21",
+        settings: {
+          optimizer: {
+            enabled: true,
+            runs: 200,
+          },
+        },
+      },
+    ],
   },
   networks: {
     hardhat: {
@@ -39,10 +53,6 @@ const config: HardhatUserConfig = {
     enabled: process.env.REPORT_GAS === "true",
     currency: "USD",
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
-  },
-  typechain: {
-    outDir: "typechain-types",
-    target: "ethers-v6",
   },
 };
 

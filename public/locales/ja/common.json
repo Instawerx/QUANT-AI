@@ -1,0 +1,14 @@
+{
+  "welcome": "ようこそ",
+  "trading": "取引",
+  "dashboard": "ダッシュボード",
+  "portfolio": "ポートフォリオ",
+  "settings": "設定",
+  "connect_wallet": "ウォレット接続",
+  "disconnect": "切断",
+  "language": "言語",
+  "theme": "テーマ",
+  "light": "ライト",
+  "dark": "ダーク",
+  "auto": "自動"
+}

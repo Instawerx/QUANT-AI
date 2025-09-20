@@ -1,0 +1,186 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper functions for authentication and authorization
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function getUserId() {
+      return request.auth.uid;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && getUserId() == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(getUserId())).data.tier >= 3;
+    }
+
+    function isVerifiedUser() {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(getUserId())).data.isVerified == true;
+    }
+
+    function hasMinimumTier(minTier) {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(getUserId())).data.tier >= minTier;
+    }
+
+    function isNotSuspended() {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(getUserId())).data.isSuspended != true;
+    }
+
+    // Validation helpers
+    function isValidAddress(address) {
+      return address is string &&
+        address.matches('^0x[a-fA-F0-9]{40}$') &&
+        address == address.lower();
+    }
+
+    function isValidTimestamp(timestamp) {
+      return timestamp is timestamp;
+    }
+
+    function hasRequiredUserFields(data) {
+      return data.keys().hasAll(['address', 'tier', 'isVerified', 'isSuspended',
+                                'tradingEnabled', 'language', 'createdAt', 'updatedAt']) &&
+             isValidAddress(data.address) &&
+             data.tier is int && data.tier >= 0 && data.tier <= 3 &&
+             data.isVerified is bool &&
+             data.isSuspended is bool &&
+             data.tradingEnabled is bool &&
+             data.language is string &&
+             isValidTimestamp(data.createdAt) &&
+             isValidTimestamp(data.updatedAt);
+    }
+
+    // Users collection
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      allow create: if isAuthenticated() &&
+                      userId == getUserId() &&
+                      hasRequiredUserFields(resource.data) &&
+                      resource.data.address == userId &&
+                      resource.data.tier == 0; // New users start at tier 0
+      allow update: if (isOwner(userId) || isAdmin()) &&
+                      hasRequiredUserFields(resource.data) &&
+                      resource.data.address == resource.id &&
+                      // Users cannot promote themselves
+                      (isAdmin() || resource.data.tier == request.resource.data.tier);
+      allow delete: if isAdmin();
+
+      // User subcollections
+      match /sessions/{sessionId} {
+        allow read, write: if isOwner(userId) || isAdmin();
+      }
+
+      match /transactions/{transactionId} {
+        allow read: if isOwner(userId) || isAdmin();
+        allow create: if isOwner(userId) && isVerifiedUser() && isNotSuspended();
+        allow update: if isAdmin(); // Only admins can update transaction status
+        allow delete: if isAdmin();
+      }
+
+      match /portfolios/{portfolioId} {
+        allow read: if isOwner(userId) || isAdmin();
+        allow create, update: if isOwner(userId) && isVerifiedUser() && isNotSuspended();
+        allow delete: if isOwner(userId) || isAdmin();
+      }
+
+      match /notifications/{notificationId} {
+        allow read: if isOwner(userId) || isAdmin();
+        allow create: if isAdmin(); // Only system can create notifications
+        allow update: if isOwner(userId) || isAdmin(); // Users can mark as read
+        allow delete: if isOwner(userId) || isAdmin();
+      }
+    }
+
+    // Global collections
+    match /portfolios/{portfolioId} {
+      allow read: if isAuthenticated() &&
+                    (resource.data.userId == getUserId() || isAdmin());
+      allow create, update: if isAuthenticated() &&
+                              isVerifiedUser() &&
+                              isNotSuspended() &&
+                              resource.data.userId == getUserId();
+      allow delete: if isAuthenticated() &&
+                      (resource.data.userId == getUserId() || isAdmin());
+    }
+
+    match /transactions/{transactionId} {
+      allow read: if isAuthenticated() &&
+                    (resource.data.userId == getUserId() || isAdmin());
+      allow create: if isAuthenticated() &&
+                      isVerifiedUser() &&
+                      isNotSuspended() &&
+                      resource.data.userId == getUserId() &&
+                      resource.data.type in ['deposit', 'withdraw', 'transfer', 'trade', 'reward'] &&
+                      resource.data.status in ['pending', 'confirmed', 'failed', 'cancelled'];
+      allow update: if isAdmin() ||
+                      (isAuthenticated() &&
+                       resource.data.userId == getUserId() &&
+                       resource.data.status == 'pending'); // Users can only update pending transactions
+      allow delete: if isAdmin();
+    }
+
+    match /tokens/{tokenAddress} {
+      allow read: if true; // Public read access for token information
+      allow write: if isAdmin();
+    }
+
+    match /contracts/{contractAddress} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+
+    match /trading_sessions/{sessionId} {
+      allow read: if isAuthenticated() &&
+                    (resource.data.userId == getUserId() || isAdmin());
+      allow create: if isAuthenticated() &&
+                      isVerifiedUser() &&
+                      isNotSuspended() &&
+                      hasMinimumTier(1) && // Premium tier or higher for trading
+                      resource.data.userId == getUserId();
+      allow update: if isAuthenticated() &&
+                      (resource.data.userId == getUserId() || isAdmin());
+      allow delete: if isAuthenticated() &&
+                      (resource.data.userId == getUserId() || isAdmin());
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() &&
+                    (resource.data.userId == getUserId() || isAdmin());
+      allow create: if isAdmin(); // Only system creates notifications
+      allow update: if isAuthenticated() &&
+                      resource.data.userId == getUserId(); // Users can mark as read
+      allow delete: if isAuthenticated() &&
+                      (resource.data.userId == getUserId() || isAdmin());
+    }
+
+    match /system_config/{configKey} {
+      allow read: if resource.data.isPublic == true || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Admin-only collections for system management
+    match /admin/{document=**} {
+      allow read, write: if isAdmin();
+    }
+
+    match /logs/{document=**} {
+      allow read: if isAdmin();
+      allow create: if isAuthenticated(); // Services can write logs
+      allow update, delete: if isAdmin();
+    }
+
+    // Batch operations - allow system operations
+    match /{document=**} {
+      allow read, write: if request.auth.token.admin == true; // Service account access
+    }
+  }
+}

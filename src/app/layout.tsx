@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
-import { WalletProvider } from '@/context/wallet-context';
+import { WalletProvider } from '@/components/wallet/WalletProvider';
 import { SignupChatbot } from '@/components/signup-chatbot';
 import { SignUpToast } from '@/components/signup-toast';
 import { LiveGainsTicker } from '@/components/live-gains-ticker';
