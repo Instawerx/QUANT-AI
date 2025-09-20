@@ -155,6 +155,20 @@ jobs:
           NODE_ENV: production
           NEXT_PUBLIC_CHAIN_ID: 11155111 # Sepolia testnet
 
+      - name: Prepare GCP credentials (staging)
+        if: secrets.FIREBASE_SERVICE_ACCOUNT_STAGING != ''
+        run: |
+          mkdir -p ./secrets
+          # SECRET may be either raw JSON or base64-encoded JSON. Detect and write accordingly.
+          SECRET="${{ secrets.FIREBASE_SERVICE_ACCOUNT_STAGING }}"
+          TARGET=./secrets/firebase-service-account.json
+          if [[ "$SECRET" =~ ^\{ ]]; then
+            echo "$SECRET" > "$TARGET"
+          else
+            echo "$SECRET" | base64 --decode > "$TARGET"
+          fi
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$TARGET" >> $GITHUB_ENV
+
       - name: Deploy smart contracts to testnet
         run: npm run contracts:deploy:sepolia
         env:
@@ -172,6 +186,10 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
+          # The action accepts either the JSON content directly or will pick up
+          # credentials from GOOGLE_APPLICATION_CREDENTIALS. We decode the
+          # secret to `./secrets/firebase-service-account.json` above and set
+          # GOOGLE_APPLICATION_CREDENTIALS so the action can authenticate.
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_STAGING }}
           projectId: ${{ secrets.FIREBASE_PROJECT_ID_STAGING }}
           channelId: staging
@@ -202,6 +220,19 @@ jobs:
           NODE_ENV: production
           NEXT_PUBLIC_CHAIN_ID: 1 # Ethereum mainnet
 
+      - name: Prepare GCP credentials (production)
+        if: secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION != ''
+        run: |
+          mkdir -p ./secrets
+          SECRET="${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}"
+          TARGET=./secrets/firebase-service-account.json
+          if [[ "$SECRET" =~ ^\{ ]]; then
+            echo "$SECRET" > "$TARGET"
+          else
+            echo "$SECRET" | base64 --decode > "$TARGET"
+          fi
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$TARGET" >> $GITHUB_ENV
+
       - name: Deploy smart contracts to mainnet
         run: npm run contracts:deploy
         env:
@@ -221,6 +252,9 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
+          # We still pass the secret directly (if it contains the JSON), but
+          # we've also prepared `GOOGLE_APPLICATION_CREDENTIALS` so other
+          # tools in the workflow can authenticate against GCP.
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_PRODUCTION }}
           projectId: ${{ secrets.FIREBASE_PROJECT_ID_PRODUCTION }}
 
