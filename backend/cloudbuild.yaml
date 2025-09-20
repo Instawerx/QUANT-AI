@@ -1,0 +1,73 @@
+steps:
+  # Build the Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'build',
+      '-t', 'gcr.io/$PROJECT_ID/quantai-backend:$BUILD_ID',
+      '-t', 'gcr.io/$PROJECT_ID/quantai-backend:latest',
+      '.'
+    ]
+    dir: 'backend'
+
+  # Push the Docker image to Container Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'gcr.io/$PROJECT_ID/quantai-backend:$BUILD_ID'
+    ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [
+      'push',
+      'gcr.io/$PROJECT_ID/quantai-backend:latest'
+    ]
+
+  # Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args: [
+      'run', 'deploy', 'quantai-backend',
+      '--image', 'gcr.io/$PROJECT_ID/quantai-backend:$BUILD_ID',
+      '--region', 'us-central1',
+      '--platform', 'managed',
+      '--allow-unauthenticated',
+      '--memory', '512Mi',
+      '--cpu', '1',
+      '--concurrency', '80',
+      '--max-instances', '10',
+      '--min-instances', '0',
+      '--port', '3001',
+      '--set-env-vars', 'NODE_ENV=production',
+      '--set-env-vars', 'PORT=3001',
+      '--set-env-vars', 'FIREBASE_PROJECT_ID=$PROJECT_ID',
+      '--set-env-vars', 'CHAIN_ID=11155111',
+      '--set-secrets', 'PRIVATE_KEY=quantai-private-key:latest',
+      '--set-secrets', 'NETWORK_RPC_URL=quantai-rpc-url:latest',
+      '--set-secrets', 'METAMASK_PORTFOLIO_MANAGER_ADDRESS=quantai-portfolio-manager-address:latest',
+      '--set-secrets', 'QUANT_TOKEN_ADDRESS=quantai-token-address:latest',
+      '--set-secrets', 'ACCESS_REGISTRY_ADDRESS=quantai-access-registry-address:latest',
+      '--set-secrets', 'SUPPORTED_TOKENS=quantai-supported-tokens:latest',
+      '--set-secrets', 'JWT_SECRET=quantai-jwt-secret:latest',
+      '--set-secrets', 'SESSION_SECRET=quantai-session-secret:latest',
+      '--service-account', 'quantai-backend@$PROJECT_ID.iam.gserviceaccount.com'
+    ]
+
+# Store build artifacts
+images:
+  - 'gcr.io/$PROJECT_ID/quantai-backend:$BUILD_ID'
+  - 'gcr.io/$PROJECT_ID/quantai-backend:latest'
+
+# Build options
+options:
+  logging: CLOUD_LOGGING_ONLY
+  machineType: 'E2_HIGHCPU_8'
+
+# Timeout for the entire build
+timeout: '1200s'
+
+# Substitutions for environment-specific values
+substitutions:
+  _REGION: 'us-central1'
+  _SERVICE_NAME: 'quantai-backend'
+  _MIN_INSTANCES: '0'
+  _MAX_INSTANCES: '10'
