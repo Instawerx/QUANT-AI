@@ -29,11 +29,31 @@ jobs:
       - name: Run TypeScript checks
         run: npm run typecheck
 
-      - name: Run linting
+      - name: Run Next.js linting
         run: npm run lint
 
+      - name: Run Solidity linting
+        run: npm run lint:sol
+
+      - name: Compile smart contracts
+        run: npm run contracts:compile
+
       - name: Run smart contract tests
-        run: npx hardhat test
+        run: npm run test
+
+      - name: Run test coverage
+        run: npm run test:coverage
+
+      - name: Check coverage threshold
+        run: |
+          COVERAGE=$(grep -o '"statements":{"pct":[0-9]*' coverage/coverage-summary.json | grep -o '[0-9]*' || echo "0")
+          echo "Coverage: $COVERAGE%"
+          if [ "$COVERAGE" -lt 95 ]; then
+            echo "❌ Coverage $COVERAGE% is below required 95%"
+            exit 1
+          else
+            echo "✅ Coverage $COVERAGE% meets requirement"
+          fi
 
   deploy:
     if: github.ref == 'refs/heads/main'

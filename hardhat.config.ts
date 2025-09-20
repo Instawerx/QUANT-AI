@@ -17,13 +17,16 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
+      type: "edr-simulated",
       chainId: 1337,
     },
     localhost: {
+      type: "http",
       url: "http://127.0.0.1:8545",
       chainId: 1337,
     },
     sepolia: {
+      type: "http",
       url: `https://sepolia.infura.io/v3/${process.env.INFURA_API_KEY || ""}`,
       accounts: process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [],
       chainId: 11155111,

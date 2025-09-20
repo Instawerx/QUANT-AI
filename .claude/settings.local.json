@@ -9,7 +9,13 @@
       "Bash(firebase use:*)",
       "Bash(firebase deploy:*)",
       "Bash(npm install:*)",
-      "Bash(npx hardhat:*)"
+      "Bash(npx hardhat:*)",
+      "Bash(npm pkg delete:*)",
+      "Bash(npm pkg set:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(npm run contracts:compile:*)",
+      "Bash(npm run lint:*)",
+      "Bash(npx solhint:*)"
     ],
     "deny": [],
     "ask": []

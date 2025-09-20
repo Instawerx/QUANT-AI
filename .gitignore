@@ -19,6 +19,8 @@
 
 # testing
 /coverage
+coverage.json
+.nyc_output/
 
 # next.js
 /.next/
