@@ -1,7 +1,7 @@
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: 'standalone',
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -29,6 +29,13 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+  },
+  env: {
+    NODE_ENV: process.env.NODE_ENV,
+    PROJECT_ID: process.env.PROJECT_ID,
+  },
+  experimental: {
+    serverComponentsExternalPackages: ['hardhat'],
   },
 };
 

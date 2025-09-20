@@ -19,7 +19,10 @@
     "contracts:verify": "hardhat run scripts/verify.ts",
     "lint:sol": "solhint \"contracts/**/*.sol\"",
     "lint:ts": "eslint . --ext .ts,.tsx",
-    "lint:fix": "eslint . --ext .ts,.tsx --fix && solhint 'contracts/**/*.sol' --fix"
+    "lint:fix": "eslint . --ext .ts,.tsx --fix && solhint 'contracts/**/*.sol' --fix",
+    "deploy:production": "gcloud builds submit --config=infra/cloudbuild.yaml",
+    "deploy:local": "bash scripts/deploy-production.sh",
+    "validate:deployment": "bash scripts/validate-deployment.sh"
   },
   "dependencies": {
     "@genkit-ai/googleai": "^1.14.1",

@@ -15,7 +15,8 @@
       "Bash(npm uninstall:*)",
       "Bash(npm run contracts:compile:*)",
       "Bash(npm run lint:*)",
-      "Bash(npx solhint:*)"
+      "Bash(npx solhint:*)",
+      "Bash(gcloud config get-value:*)"
     ],
     "deny": [],
     "ask": []
