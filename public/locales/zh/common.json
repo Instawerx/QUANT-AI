@@ -1,0 +1,70 @@
+{
+  "navigation": {
+    "home": "首页",
+    "dashboard": "仪表板",
+    "trading": "交易",
+    "portfolio": "投资组合",
+    "wallet": "钱包",
+    "settings": "设置",
+    "about": "关于",
+    "contact": "联系"
+  },
+  "auth": {
+    "connect": "连接钱包",
+    "connecting": "连接中...",
+    "connected": "已连接",
+    "disconnect": "断开连接",
+    "login": "登录",
+    "logout": "退出",
+    "signMessage": "请签署此消息以进行身份验证",
+    "authFailed": "身份验证失败",
+    "sessionExpired": "会话已过期"
+  },
+  "trading": {
+    "title": "AI交易",
+    "startTrading": "开始交易",
+    "stopTrading": "停止交易",
+    "balance": "余额",
+    "profit": "利润",
+    "loss": "亏损",
+    "totalGains": "总收益",
+    "performance": "表现",
+    "strategy": "策略"
+  },
+  "wallet": {
+    "title": "钱包",
+    "address": "地址",
+    "balance": "余额",
+    "tokens": "代币",
+    "transactions": "交易记录",
+    "deposit": "存款",
+    "withdraw": "提取",
+    "transfer": "转账",
+    "send": "发送",
+    "receive": "接收"
+  },
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "success": "成功",
+    "cancel": "取消",
+    "confirm": "确认",
+    "save": "保存",
+    "edit": "编辑",
+    "delete": "删除",
+    "search": "搜索",
+    "filter": "过滤",
+    "sort": "排序",
+    "submit": "提交",
+    "close": "关闭"
+  },
+  "settings": {
+    "title": "设置",
+    "language": "语言",
+    "theme": "主题",
+    "notifications": "通知",
+    "security": "安全",
+    "preferences": "偏好",
+    "account": "账户"
+  }
+}

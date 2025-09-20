@@ -1,0 +1,70 @@
+{
+  "navigation": {
+    "home": "Inicio",
+    "dashboard": "Panel",
+    "trading": "Comercio",
+    "portfolio": "Cartera",
+    "wallet": "Billetera",
+    "settings": "Configuración",
+    "about": "Acerca de",
+    "contact": "Contacto"
+  },
+  "auth": {
+    "connect": "Conectar Billetera",
+    "connecting": "Conectando...",
+    "connected": "Conectado",
+    "disconnect": "Desconectar",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "signMessage": "Por favor firma este mensaje para autenticarte",
+    "authFailed": "Error de autenticación",
+    "sessionExpired": "Sesión expirada"
+  },
+  "trading": {
+    "title": "Trading IA",
+    "startTrading": "Iniciar Trading",
+    "stopTrading": "Detener Trading",
+    "balance": "Saldo",
+    "profit": "Ganancia",
+    "loss": "Pérdida",
+    "totalGains": "Ganancias Totales",
+    "performance": "Rendimiento",
+    "strategy": "Estrategia"
+  },
+  "wallet": {
+    "title": "Billetera",
+    "address": "Dirección",
+    "balance": "Saldo",
+    "tokens": "Tokens",
+    "transactions": "Transacciones",
+    "deposit": "Depositar",
+    "withdraw": "Retirar",
+    "transfer": "Transferir",
+    "send": "Enviar",
+    "receive": "Recibir"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "submit": "Enviar",
+    "close": "Cerrar"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "theme": "Tema",
+    "notifications": "Notificaciones",
+    "security": "Seguridad",
+    "preferences": "Preferencias",
+    "account": "Cuenta"
+  }
+}

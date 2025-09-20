@@ -1,0 +1,70 @@
+{
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "trading": "Trading",
+    "portfolio": "Portfolio",
+    "wallet": "Wallet",
+    "settings": "Settings",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "auth": {
+    "connect": "Connect Wallet",
+    "connecting": "Connecting...",
+    "connected": "Connected",
+    "disconnect": "Disconnect",
+    "login": "Login",
+    "logout": "Logout",
+    "signMessage": "Please sign this message to authenticate",
+    "authFailed": "Authentication failed",
+    "sessionExpired": "Session expired"
+  },
+  "trading": {
+    "title": "AI Trading",
+    "startTrading": "Start Trading",
+    "stopTrading": "Stop Trading",
+    "balance": "Balance",
+    "profit": "Profit",
+    "loss": "Loss",
+    "totalGains": "Total Gains",
+    "performance": "Performance",
+    "strategy": "Strategy"
+  },
+  "wallet": {
+    "title": "Wallet",
+    "address": "Address",
+    "balance": "Balance",
+    "tokens": "Tokens",
+    "transactions": "Transactions",
+    "deposit": "Deposit",
+    "withdraw": "Withdraw",
+    "transfer": "Transfer",
+    "send": "Send",
+    "receive": "Receive"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "submit": "Submit",
+    "close": "Close"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "security": "Security",
+    "preferences": "Preferences",
+    "account": "Account"
+  }
+}
