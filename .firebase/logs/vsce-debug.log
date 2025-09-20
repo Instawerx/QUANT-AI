@@ -32,3 +32,5 @@ I0920 01:44:38.067016   29816 dev.go:102] Listening on address (HTTP + gRPC): 12
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:44:48.059296   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
 [debug] [2025-09-20T06:44:58.059Z] E0920 01:44:58.059452   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:44:58.059452   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
+[debug] [2025-09-20T06:45:08.059Z] E0920 01:45:08.059431   29816 watch.go:31] Failed to load config from "c:\\QuantAI\\dataconnect": could not find dataconnect.yaml in `c:\QuantAI\dataconnect`
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E0920 01:45:08.059431   29816 watch.go:31] Failed to load config from \"c:\\\\QuantAI\\\\dataconnect\": could not find dataconnect.yaml in `c:\\QuantAI\\dataconnect`\n"}}
