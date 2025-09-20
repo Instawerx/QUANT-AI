@@ -6,6 +6,12 @@ import { WalletProvider } from '@/context/wallet-context';
 import { SignupChatbot } from '@/components/signup-chatbot';
 import { SignUpToast } from '@/components/signup-toast';
 import { LiveGainsTicker } from '@/components/live-gains-ticker';
+import { startTelemetry } from '@/lib/telemetry';
+
+// Initialize telemetry
+if (typeof window === 'undefined') {
+  startTelemetry();
+}
 
 export const metadata: Metadata = {
   title: 'QuantTrade AI',
