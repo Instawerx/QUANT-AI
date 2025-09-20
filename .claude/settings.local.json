@@ -3,7 +3,13 @@
     "allow": [
       "Bash(npm run typecheck:*)",
       "Bash(npm run lint)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(firebase --version)",
+      "Bash(firebase use:*)",
+      "Bash(firebase deploy:*)",
+      "Bash(npm install:*)",
+      "Bash(npx hardhat:*)"
     ],
     "deny": [],
     "ask": []
