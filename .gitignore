@@ -63,6 +63,19 @@ next-env.d.ts
 .genkit/*
 .env*
 
+# Local secrets folder
+secrets/
+
 # firebase
 firebase-debug.log
 firestore-debug.log
+.firebase/
+
+# Downloaded service account files
+*firebase-adminsdk*.json
+downloaded-sa.json
+
+# Installers and large binaries
+*.exe
+*.msi
+*.dmg
