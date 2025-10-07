@@ -4,6 +4,7 @@ import React from 'react';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { AppFooter } from '@/components/layout/AppFooter';
 import { MarketingBanner } from '@/components/marketing/MarketingBanner';
+import SpinPromoModal from '@/components/marketing/SpinPromoModal';
 import { TradingChart } from '@/components/trading/TradingChart';
 import { AccountGrowthTicker } from '@/components/simulation/AccountGrowthTicker';
 import { DynamicTestimonials } from '@/components/testimonials/DynamicTestimonials';
@@ -74,6 +75,8 @@ export default function HomePage() {
       <AppHeader />
 
       <main className="space-y-16 pb-16">
+        {/* Spin to Win Promo Modal (appears after 15s for new visitors only) */}
+        <SpinPromoModal />
         {/* Hero Section */}
         <section className="container pt-8">
           <MarketingBanner variant="full" />
