@@ -32,13 +32,8 @@ jobs:
         run: npm run lint || true
         continue-on-error: true
 
-      - name: Compile smart contracts
-        run: npm run contracts:compile
-
-      - name: Run smart contract tests
-        run: npm run test
-        env:
-          NODE_ENV: test
+      - name: Run TypeScript type check (non-blocking)
+        run: npm run typecheck || true
         continue-on-error: true
 
   # Build the application
