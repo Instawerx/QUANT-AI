@@ -34,7 +34,7 @@ export function AccountGrowthTicker({
 }: AccountGrowthTickerProps) {
   const [accounts, setAccounts] = useState<TradingAccount[]>([]);
   const [isRunning, setIsRunning] = useState(true);
-  const [totalUsers, setTotalUsers] = useState(1236);
+  const [totalUsers, setTotalUsers] = useState(840 + Math.floor(Math.random() * 2816)); // 840-3,656
   const [totalProfit, setTotalProfit] = useState(0);
 
   // Generate realistic account data
@@ -54,7 +54,7 @@ export function AccountGrowthTicker({
     ];
 
     const tiers: ('basic' | 'premium' | 'pro')[] = ['basic', 'premium', 'pro'];
-    const tierWeights = [0.6, 0.3, 0.1]; // 60% basic, 30% premium, 10% pro
+    const tierWeights = [0.7, 0.25, 0.05]; // 70% basic, 25% premium, 5% pro
 
     const randomTier = () => {
       const random = Math.random();
@@ -67,21 +67,32 @@ export function AccountGrowthTicker({
     };
 
     const tier = randomTier();
-    const baseBalance = tier === 'pro' ? 50000 : tier === 'premium' ? 10000 : 1000;
-    const initialBalance = baseBalance + (Math.random() * baseBalance * 0.5);
 
-    // Simulate growth based on tier and time
-    const hoursActive = Math.random() * 720; // 0-30 days
-    const hourlyGrowthRate = 0.04; // 4% per hour as specified
-    const growthFactor = Math.pow(1 + hourlyGrowthRate, hoursActive);
+    // Generate realistic profit amounts
+    // Distribution: 50% <$4,300, 30% $4,300-$24,000, 15% $24,000-$343,000, 5% $343,000-$866,000
+    const random = Math.random();
+    let profit: number;
 
-    // Add some volatility
-    const volatility = (Math.random() - 0.5) * 0.3; // ±15% volatility
-    const finalGrowthFactor = growthFactor * (1 + volatility);
+    if (random < 0.5) {
+      // 50% chance: profits below $4,300
+      profit = 836 + Math.random() * 3464; // $836 to $4,300
+    } else if (random < 0.8) {
+      // 30% chance: profits between $4,300 and $24,000
+      profit = 4300 + Math.random() * 19700; // $4,300 to $24,000
+    } else if (random < 0.95) {
+      // 15% chance: profits between $24,000 and $343,000
+      profit = 24000 + Math.random() * 319000; // $24,000 to $343,000
+    } else {
+      // 5% chance: high profits between $343,000 and $866,000
+      profit = 343000 + Math.random() * 523000; // $343,000 to $866,000
+    }
 
-    const currentBalance = initialBalance * finalGrowthFactor;
-    const profit = currentBalance - initialBalance;
-    const profitPercent = ((profit / initialBalance) * 100);
+    // Calculate initial balance based on profit and a realistic percentage
+    const profitPercent = 15 + Math.random() * 285; // 15% to 300% gain
+    const initialBalance = profit / (profitPercent / 100);
+    const currentBalance = initialBalance + profit;
+
+    const hoursActive = 24 + Math.random() * 696; // 1-30 days
 
     return {
       id: `acc_${id}`,
@@ -89,7 +100,7 @@ export function AccountGrowthTicker({
       balance: Number(currentBalance.toFixed(2)),
       initialBalance: Number(initialBalance.toFixed(2)),
       profit: Number(profit.toFixed(2)),
-      profitPercent: Number(profitPercent.toFixed(2)),
+      profitPercent: Number(profitPercent.toFixed(1)),
       strategy: strategies[Math.floor(Math.random() * strategies.length)],
       isActive: Math.random() > 0.1, // 90% active
       joinedAt: new Date(Date.now() - hoursActive * 60 * 60 * 1000),
@@ -118,11 +129,12 @@ export function AccountGrowthTicker({
         const updatedAccounts = prevAccounts.map(account => {
           if (!account.isActive) return account;
 
-          // Simulate 4% hourly growth with some volatility
-          const hourlyRate = 0.04 / 3600; // Convert to per-second rate
+          // Simulate realistic small growth with volatility
           const timeElapsed = (Date.now() - account.lastUpdate.getTime()) / 1000; // seconds
-          const volatility = (Math.random() - 0.5) * 0.002; // Small volatility
-          const growthRate = hourlyRate + volatility;
+          const volatility = (Math.random() - 0.5) * 0.0008; // Small random change
+
+          // Very small realistic growth rate
+          const growthRate = 0.00001 + volatility;
 
           const newBalance = account.balance * (1 + growthRate * timeElapsed);
           const newProfit = newBalance - account.initialBalance;
@@ -132,26 +144,32 @@ export function AccountGrowthTicker({
             ...account,
             balance: Number(newBalance.toFixed(2)),
             profit: Number(newProfit.toFixed(2)),
-            profitPercent: Number(newProfitPercent.toFixed(2)),
+            profitPercent: Number(newProfitPercent.toFixed(1)),
             lastUpdate: new Date()
           };
         });
 
-        // Occasionally add new users (6 per hour = 1 every 10 minutes)
-        if (Math.random() < 0.003) { // ~0.3% chance per update
+        // Occasionally add new users
+        if (Math.random() < 0.003) {
           const newAccount = generateAccount(prevAccounts.length + 1);
-          setTotalUsers(prev => prev + 1);
-          return [newAccount, ...updatedAccounts].slice(0, 100); // Keep latest 100
+          return [newAccount, ...updatedAccounts].slice(0, 100);
         }
 
         return updatedAccounts;
       });
 
-      // Update total profit
+      // Update total profit and dynamic user count
       setAccounts(accounts => {
         const total = accounts.reduce((sum, acc) => sum + acc.profit, 0);
         setTotalProfit(total);
         return accounts;
+      });
+
+      // Dynamic user count that fluctuates (840-3,656 range)
+      setTotalUsers(prev => {
+        const change = Math.floor(Math.random() * 21) - 10; // -10 to +10
+        const newCount = prev + change;
+        return Math.max(840, Math.min(3656, newCount)); // Keep in range
       });
     }, tickerSpeed);
 

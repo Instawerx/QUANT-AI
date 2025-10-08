@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -118,27 +119,26 @@ export function AppHeader({ className }: AppHeaderProps) {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-3">
-          <NavigationMenu>
-            <NavigationMenuList>
-              {publicNavigationItems.map((item) => (
-                <NavigationMenuItem key={item.title}>
-                  <NavigationMenuLink
-                    href={item.href}
-                    className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-                  >
-                    {item.title}
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              ))}
-            </NavigationMenuList>
-          </NavigationMenu>
-          <a href="/spin">
-            <Button variant="outline" size="sm" className="border-purple-500 text-purple-600 hover:bg-purple-500/10">
+        <div className="hidden md:flex items-center gap-2">
+          {publicNavigationItems.map((item) => (
+            <Link
+              key={item.title}
+              href={item.href}
+              className="inline-flex h-10 items-center justify-center rounded-md bg-background px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer"
+            >
+              {item.title}
+            </Link>
+          ))}
+          <Link href="/spin">
+            <Button
+              variant="outline"
+              size="sm"
+              className="border-purple-500 text-purple-600 hover:bg-purple-500/10"
+            >
               <Gift className="h-4 w-4 mr-2" />
               🎰 Spin to Win
             </Button>
-          </a>
+          </Link>
         </div>
 
         {/* Desktop Actions */}
@@ -170,24 +170,24 @@ export function AppHeader({ className }: AppHeaderProps) {
             {/* Mobile Navigation */}
             <div className="space-y-2">
               {publicNavigationItems.map((item) => (
-                <a
+                <Link
                   key={item.title}
                   href={item.href}
-                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent"
                   onClick={() => setIsMobileMenuOpen(false)}
+                  className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium hover:bg-accent w-full text-left cursor-pointer"
                 >
                   <item.icon className="h-4 w-4" />
                   {item.title}
-                </a>
+                </Link>
               ))}
-              <a
+              <Link
                 href="/spin"
-                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-purple-500/10 text-purple-600 hover:bg-purple-500/20"
                 onClick={() => setIsMobileMenuOpen(false)}
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-purple-500/10 text-purple-600 hover:bg-purple-500/20 w-full text-left cursor-pointer"
               >
                 <Gift className="h-4 w-4" />
                 🎰 Spin to Win
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Actions */}

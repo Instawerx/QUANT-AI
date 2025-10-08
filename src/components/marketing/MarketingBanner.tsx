@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -29,22 +30,27 @@ export function MarketingBanner({
   className = '',
   variant = 'hero'
 }: MarketingBannerProps) {
+  const router = useRouter();
   const [currentStat, setCurrentStat] = useState(0);
   const [liveMetrics, setLiveMetrics] = useState({
-    activeTrades: 12847,
+    activeTrades: 8287,
     successRate: 94.7,
     totalProfit: 2400000,
     avgReturn: 287,
     uptime: 99.9
   });
 
+  const handleWatchDemo = () => {
+    router.push('/dashboard');
+  };
+
   // Animated statistics
   const stats = [
-    { icon: TrendingUp, label: 'Success Rate', value: `${liveMetrics.successRate}%`, color: 'text-green-500' },
+    { icon: TrendingUp, label: 'Success Rate', value: `${liveMetrics.successRate.toFixed(1)}%`, color: 'text-green-500' },
     { icon: Users, label: 'Active Traders', value: liveMetrics.activeTrades.toLocaleString(), color: 'text-blue-500' },
     { icon: DollarSign, label: 'Total Profits', value: `$${(liveMetrics.totalProfit / 1000000).toFixed(1)}M+`, color: 'text-purple-500' },
-    { icon: Target, label: 'Avg Monthly Return', value: `${liveMetrics.avgReturn}%`, color: 'text-yellow-500' },
-    { icon: Shield, label: 'Uptime', value: `${liveMetrics.uptime}%`, color: 'text-emerald-500' }
+    { icon: Target, label: 'Avg Monthly Return', value: `${liveMetrics.avgReturn.toFixed(0)}%`, color: 'text-yellow-500' },
+    { icon: Shield, label: 'Uptime', value: `${liveMetrics.uptime.toFixed(1)}%`, color: 'text-emerald-500' }
   ];
 
   // Cycle through stats
@@ -60,11 +66,12 @@ export function MarketingBanner({
   useEffect(() => {
     const interval = setInterval(() => {
       setLiveMetrics(prev => ({
-        activeTrades: prev.activeTrades + Math.floor(Math.random() * 3),
-        successRate: Math.min(99.9, prev.successRate + (Math.random() - 0.5) * 0.1),
+        // Keep activeTrades in 7,800-8,800 range
+        activeTrades: Math.max(7800, Math.min(8800, prev.activeTrades + Math.floor(Math.random() * 21) - 10)),
+        successRate: Math.max(93.0, Math.min(96.5, prev.successRate + (Math.random() - 0.5) * 0.2)),
         totalProfit: prev.totalProfit + Math.floor(Math.random() * 1000),
-        avgReturn: prev.avgReturn + (Math.random() - 0.5) * 2,
-        uptime: Math.max(99.0, prev.uptime + (Math.random() - 0.5) * 0.01)
+        avgReturn: Math.max(250, Math.min(320, prev.avgReturn + (Math.random() - 0.5) * 3)),
+        uptime: Math.max(99.5, Math.min(99.99, prev.uptime + (Math.random() - 0.5) * 0.02))
       }));
     }, 5000);
 
@@ -135,7 +142,7 @@ export function MarketingBanner({
                     buttonSize="lg"
                     buttonClassName="bg-lime-400 text-black hover:bg-lime-300 font-semibold"
                   />
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+                  <Button onClick={handleWatchDemo} size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
                     Watch Demo
                   </Button>
                 </div>
@@ -236,9 +243,11 @@ export function MarketingBanner({
                 buttonClassName="bg-black text-white hover:bg-gray-800"
                 showIcon={false}
               />
-              <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                View Pricing Plans
-              </Button>
+              <a href="/pricing">
+                <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white">
+                  View Pricing Plans
+                </Button>
+              </a>
             </div>
             <div className="flex items-center justify-center gap-4 mt-6 text-sm">
               <div className="flex items-center gap-1">
@@ -303,7 +312,7 @@ export function MarketingBanner({
               buttonSize="lg"
               buttonClassName="bg-lime-400 text-black hover:bg-lime-300 font-semibold"
             />
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
+            <Button onClick={handleWatchDemo} size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
               Watch Demo
             </Button>
           </div>

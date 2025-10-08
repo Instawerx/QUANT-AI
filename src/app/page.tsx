@@ -3,6 +3,7 @@
 export const dynamic = 'force-dynamic';
 
 import React from 'react';
+import Link from 'next/link';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { AppFooter } from '@/components/layout/AppFooter';
 import { MarketingBanner } from '@/components/marketing/MarketingBanner';
@@ -58,7 +59,7 @@ export default function HomePage() {
 
   const stats = [
     { value: '94.7%', label: 'Success Rate', icon: TrendingUp },
-    { value: '12,847', label: 'Active Traders', icon: Users },
+    { value: '8,287', label: 'Active Traders', icon: Users },
     { value: '99.9%', label: 'Uptime', icon: Clock },
     { value: '4.8/5', label: 'User Rating', icon: Star }
   ];
@@ -190,10 +191,12 @@ export default function HomePage() {
             </div>
 
             <div className="text-center mt-12">
-              <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
-                <Play className="mr-2 h-5 w-5" />
-                Watch Demo Video
-              </Button>
+              <Link href="/dashboard">
+                <Button size="lg" className="bg-purple-600 hover:bg-purple-700">
+                  <Play className="mr-2 h-5 w-5" />
+                  Watch Demo Video
+                </Button>
+              </Link>
             </div>
           </div>
         </section>
@@ -265,9 +268,11 @@ export default function HomePage() {
                   buttonClassName="bg-lime-400 text-black hover:bg-lime-300"
                   showIcon={false}
                 />
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600">
-                  Schedule Demo
-                </Button>
+                <Link href="/contact">
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600">
+                    Schedule Demo
+                  </Button>
+                </Link>
               </div>
             </CardContent>
           </Card>

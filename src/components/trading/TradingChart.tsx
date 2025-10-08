@@ -132,26 +132,27 @@ export function TradingChart({
       // Create chart
       const chart = createChart(chartContainerRef.current, {
         layout: {
-          background: { type: ColorType.Solid, color: '#1a1a1a' },
-          textColor: '#d1d5db',
+          background: { type: ColorType.Solid, color: '#ffffff' },
+          textColor: '#374151',
         },
-      grid: {
-        vertLines: { color: '#2d2d2d' },
-        horzLines: { color: '#2d2d2d' },
-      },
-      crosshair: {
-        mode: 1,
-      },
-      rightPriceScale: {
-        borderColor: '#485158',
-      },
-      timeScale: {
-        borderColor: '#485158',
-        timeVisible: true,
-        secondsVisible: false,
-      },
-      height,
-    });
+        grid: {
+          vertLines: { color: '#e5e7eb' },
+          horzLines: { color: '#e5e7eb' },
+        },
+        crosshair: {
+          mode: 1,
+        },
+        rightPriceScale: {
+          borderColor: '#d1d5db',
+        },
+        timeScale: {
+          borderColor: '#d1d5db',
+          timeVisible: true,
+          secondsVisible: false,
+        },
+        width: chartContainerRef.current.clientWidth,
+        height,
+      });
 
     chartRef.current = chart;
 
@@ -300,8 +301,8 @@ export function TradingChart({
       <CardContent className="p-0">
         <div
           ref={chartContainerRef}
-          className="w-full"
-          style={{ height: `${height}px` }}
+          className="w-full bg-slate-900"
+          style={{ height: `${height}px`, minWidth: '100%' }}
         />
       </CardContent>
     </Card>
