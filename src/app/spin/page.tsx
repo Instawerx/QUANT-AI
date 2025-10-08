@@ -1,28 +1,79 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useSpinLogic } from '@/hooks/useSpinLogic';
+import { useSoundEffects } from '@/hooks/useSoundEffects';
 import WinModal from '@/components/SpinToWin/WinModal';
+import DoubleUpChallenge from '@/components/SpinToWin/DoubleUpChallenge';
+import ReferralStats from '@/components/SpinToWin/ReferralStats';
 import WalletConnectButton from '@/components/SpinToWin/WalletConnectButton';
 import { PRIZES, DEGREES_PER_SEGMENT } from '@/types/spin';
+import { Volume2, VolumeX } from 'lucide-react';
+import { generateReferralCode, extractReferralCode, storeReferralCode, getStoredReferralCode } from '@/lib/referral';
 
 export default function SpinPage() {
   const { executeSpin, spinsRemaining, isSpinning, canSpin } = useSpinLogic();
+  const { play, muted, setMuted } = useSoundEffects();
   const [rotation, setRotation] = useState(0);
   const [showWinModal, setShowWinModal] = useState(false);
+  const [showDoubleUp, setShowDoubleUp] = useState(false);
   const [winPrize, setWinPrize] = useState<any>(null);
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
+
+  // Track referral code on page load
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlReferralCode = extractReferralCode(window.location.search);
+      if (urlReferralCode) {
+        storeReferralCode(urlReferralCode);
+      }
+    }
+  }, []);
+
+  // Track referral when wallet is connected
+  useEffect(() => {
+    const trackReferral = async () => {
+      const referralCode = getStoredReferralCode();
+      if (walletAddress && referralCode) {
+        try {
+          await fetch('/api/referral/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              referralCode,
+              newUserId: walletAddress,
+            }),
+          });
+        } catch (error) {
+          console.error('Failed to track referral:', error);
+        }
+      }
+    };
+
+    if (walletAddress) {
+      trackReferral();
+    }
+  }, [walletAddress]);
 
   const handleWalletConnect = (address: string) => {
     setWalletAddress(address);
   };
 
+  // Generate referral code for current user
+  const userReferralCode = walletAddress ? generateReferralCode(walletAddress) : undefined;
+
   const handleSpin = async () => {
     if (!canSpin) return;
 
+    // Play click sound
+    play('click');
+
     const result = await executeSpin();
     if (!result) return;
+
+    // Play spinning sound
+    play('spin');
 
     // Calculate final rotation
     const spins = 5; // 5 full rotations
@@ -32,6 +83,9 @@ export default function SpinPage() {
     // Show result after animation
     setTimeout(() => {
       if (result.isWin && result.prize) {
+        // Play win sound
+        play('win');
+
         setWinPrize(result.prize);
         setShowWinModal(true);
 
@@ -45,6 +99,9 @@ export default function SpinPage() {
             });
           });
         }
+      } else {
+        // Play lose sound
+        play('lose');
       }
     }, 4000);
   };
@@ -249,6 +306,22 @@ export default function SpinPage() {
           </div>
         </motion.div>
       </motion.div>
+
+      {/* Mute Toggle Button */}
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        onClick={() => setMuted(!muted)}
+        className="absolute top-6 left-6 z-30 w-12 h-12 rounded-xl bg-slate-800/80 hover:bg-slate-700 border border-slate-700/50 transition-all flex items-center justify-center text-slate-400 hover:text-amber-400 backdrop-blur-sm"
+        title={muted ? 'Unmute sounds' : 'Mute sounds'}
+      >
+        {muted ? (
+          <VolumeX className="w-6 h-6" />
+        ) : (
+          <Volume2 className="w-6 h-6" />
+        )}
+      </motion.button>
 
       {/* Close/Collapse Button */}
       <motion.button
@@ -510,6 +583,17 @@ export default function SpinPage() {
             </div>
           )}
         </div>
+
+        {/* Referral Stats - Only show if wallet is connected */}
+        {walletAddress && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            <ReferralStats userId={walletAddress} />
+          </motion.div>
+        )}
       </motion.div>
 
       {/* Premium Spin Button */}
@@ -560,7 +644,52 @@ export default function SpinPage() {
       {/* Win Modal */}
       <AnimatePresence>
         {showWinModal && winPrize && (
-          <WinModal prize={winPrize} onClose={() => setShowWinModal(false)} />
+          <WinModal
+            prize={winPrize}
+            referralCode={userReferralCode}
+            onClose={() => {
+              setShowWinModal(false);
+              // Show double-up challenge after closing win modal
+              setShowDoubleUp(true);
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Double-Up Challenge */}
+      <AnimatePresence>
+        {showDoubleUp && winPrize && (
+          <DoubleUpChallenge
+            prize={winPrize}
+            onAccept={() => {
+              play('doubleup');
+            }}
+            onDecline={() => {
+              setShowDoubleUp(false);
+            }}
+            onResult={(doubled, newPrize) => {
+              if (doubled && newPrize) {
+                // Player won the double-up!
+                play('fanfare');
+                setWinPrize(newPrize);
+                // Show confetti for double win
+                if (typeof window !== 'undefined') {
+                  import('canvas-confetti').then(confetti => {
+                    confetti.default({
+                      particleCount: 150,
+                      spread: 100,
+                      origin: { y: 0.5 },
+                      colors: ['#FFD700', '#FFA500', '#FF6347']
+                    });
+                  });
+                }
+              } else {
+                // Player lost the double-up
+                play('lose');
+              }
+              setShowDoubleUp(false);
+            }}
+          />
         )}
       </AnimatePresence>
 

@@ -1,4 +1,4 @@
-'use server';
+// 'use server' // Disabled for static export;
 
 /**
  * @fileOverview Generates realistic trading account data for the QuantTrade AI app.

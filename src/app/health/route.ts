@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { log } from '@/lib/logger';
-import { customMetrics } from '@/lib/telemetry';
+// import { customMetrics } from '@/lib/telemetry'; // Disabled for static export
+
+export const dynamic = 'force-static';
+export const revalidate = false;
 
 export async function GET(request: NextRequest) {
   const start = Date.now();
@@ -21,17 +24,17 @@ export async function GET(request: NextRequest) {
     };
 
     // Record metrics
-    customMetrics.apiRequestCounter.add(1, {
-      method: 'GET',
-      endpoint: '/health',
-      status: '200',
-    });
+    // customMetrics.apiRequestCounter.add(1, {
+    //   method: 'GET',
+    //   endpoint: '/health',
+    //   status: '200',
+    // });
 
     const duration = Date.now() - start;
-    customMetrics.apiRequestDuration.record(duration, {
-      method: 'GET',
-      endpoint: '/health',
-    });
+    // customMetrics.apiRequestDuration.record(duration, {
+    //   method: 'GET',
+    //   endpoint: '/health',
+    // });
 
     // Log the health check
     log.apiRequest('GET', '/health', 200, duration);
@@ -42,16 +45,16 @@ export async function GET(request: NextRequest) {
 
     log.error('Health check failed', { error });
 
-    customMetrics.apiRequestCounter.add(1, {
-      method: 'GET',
-      endpoint: '/health',
-      status: '500',
-    });
+    // customMetrics.apiRequestCounter.add(1, {
+    //   method: 'GET',
+    //   endpoint: '/health',
+    //   status: '500',
+    // });
 
-    customMetrics.apiRequestDuration.record(duration, {
-      method: 'GET',
-      endpoint: '/health',
-    });
+    // customMetrics.apiRequestDuration.record(duration, {
+    //   method: 'GET',
+    //   endpoint: '/health',
+    // });
 
     return NextResponse.json(
       {

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { MissionContributionFlow } from '@/components/mission/MissionContributionFlow';
 import {
   Brain,
   Zap,
@@ -129,10 +130,11 @@ export function MarketingBanner({
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-lime-400 text-black hover:bg-lime-300 font-semibold">
-                    Start Free Trial
-                    <Zap className="ml-2 h-5 w-5" />
-                  </Button>
+                  <MissionContributionFlow
+                    buttonText="Start Free Trial"
+                    buttonSize="lg"
+                    buttonClassName="bg-lime-400 text-black hover:bg-lime-300 font-semibold"
+                  />
                   <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
                     Watch Demo
                   </Button>
@@ -228,9 +230,12 @@ export function MarketingBanner({
               and see why thousands of traders have made the switch.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-black text-white hover:bg-gray-800">
-                Start Free Trial - 30 Days
-              </Button>
+              <MissionContributionFlow
+                buttonText="Start Free Trial - 30 Days"
+                buttonSize="lg"
+                buttonClassName="bg-black text-white hover:bg-gray-800"
+                showIcon={false}
+              />
               <Button size="lg" variant="outline" className="border-black text-black hover:bg-black hover:text-white">
                 View Pricing Plans
               </Button>
@@ -293,10 +298,11 @@ export function MarketingBanner({
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-lime-400 text-black hover:bg-lime-300 font-semibold">
-              Start Free Trial
-              <Zap className="ml-2 h-5 w-5" />
-            </Button>
+            <MissionContributionFlow
+              buttonText="Start Free Trial"
+              buttonSize="lg"
+              buttonClassName="bg-lime-400 text-black hover:bg-lime-300 font-semibold"
+            />
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-black">
               Watch Demo
             </Button>

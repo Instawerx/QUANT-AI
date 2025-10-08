@@ -1,5 +1,7 @@
 'use client';
 
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { AppHeader } from '@/components/layout/AppHeader';
 import { AppFooter } from '@/components/layout/AppFooter';
@@ -8,6 +10,7 @@ import { TradingChart } from '@/components/trading/TradingChart';
 import { AccountGrowthTicker } from '@/components/simulation/AccountGrowthTicker';
 import { DynamicTestimonials } from '@/components/testimonials/DynamicTestimonials';
 import { FreeTrialSignup } from '@/components/trial/FreeTrialSignup';
+import { MissionContributionFlow } from '@/components/mission/MissionContributionFlow';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -256,10 +259,12 @@ export default function HomePage() {
                 AI trading. Start your journey to financial freedom today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" className="bg-lime-400 text-black hover:bg-lime-300">
-                  Start Free Trial Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                <MissionContributionFlow
+                  buttonText="Start Free Trial Now"
+                  buttonSize="lg"
+                  buttonClassName="bg-lime-400 text-black hover:bg-lime-300"
+                  showIcon={false}
+                />
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600">
                   Schedule Demo
                 </Button>

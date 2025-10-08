@@ -3,15 +3,15 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from '@/lib/utils';
 import { WalletProvider } from '@/components/wallet/WalletProvider';
-import { SignupChatbot } from '@/components/signup-chatbot';
+// import { SignupChatbot } from '@/components/signup-chatbot'; // Disabled for static export (uses Genkit/fs)
 import { SignUpToast } from '@/components/signup-toast';
-import { LiveGainsTicker } from '@/components/live-gains-ticker';
-import { startTelemetry } from '@/lib/telemetry';
+// import { LiveGainsTicker } from '@/components/live-gains-ticker'; // Disabled for static export (uses Genkit)
+// import { startTelemetry } from '@/lib/telemetry';
 
-// Initialize telemetry
-if (typeof window === 'undefined') {
-  startTelemetry();
-}
+// Initialize telemetry (disabled for static export)
+// if (typeof window === 'undefined') {
+//   startTelemetry();
+// }
 
 export const metadata: Metadata = {
   title: 'QuantTrade AI',
@@ -35,8 +35,8 @@ export default function RootLayout({
           {children}
           <Toaster />
           <SignUpToast />
-          <LiveGainsTicker />
-          <SignupChatbot />
+          {/* <LiveGainsTicker /> Disabled for static export */}
+          {/* <SignupChatbot /> Disabled for static export */}
         </WalletProvider>
       </body>
     </html>

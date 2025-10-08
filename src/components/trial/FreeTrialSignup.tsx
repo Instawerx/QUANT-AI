@@ -6,29 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Checkbox } from '@/components/ui/checkbox';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { MissionContributionFlow } from '@/components/mission/MissionContributionFlow';
 import {
   Gift,
   Clock,
   Star,
   Shield,
   Zap,
-  Users,
-  AlertCircle,
-  CheckCircle,
-  Copy,
-  Share2
 } from 'lucide-react';
-import { useWallet } from '@/lib/web3/hooks/useWallet';
-import { toast } from '@/components/ui/use-toast';
-import { trialManager } from '@/lib/trial/trialManager';
 
 interface FreeTrialSignupProps {
   className?: string;
@@ -39,94 +24,7 @@ export function FreeTrialSignup({
   className = '',
   onSuccess
 }: FreeTrialSignupProps) {
-  const { isConnected, address, connect } = useWallet();
-  const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [referralCode, setReferralCode] = useState('');
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
-  const [trialData, setTrialData] = useState<any>(null);
-
   const remainingSlots = 10000 - 8543; // Mock data - would be fetched from backend
-
-  const handleStartTrial = async () => {
-    if (!isConnected || !address) {
-      connect();
-      return;
-    }
-
-    if (!acceptTerms) {
-      toast({
-        title: 'Terms Required',
-        description: 'Please accept the terms and conditions to continue.',
-        variant: 'destructive'
-      });
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const result = await trialManager.startFreeTrial(
-        address,
-        email || undefined,
-        referralCode || undefined
-      );
-
-      if (result.success && result.trialUser) {
-        setTrialData(result.trialUser);
-        setShowSuccess(true);
-        onSuccess?.(result.trialUser);
-
-        toast({
-          title: 'Free Trial Started!',
-          description: 'Welcome to QuantTrade AI. Your 30-day trial is now active.',
-        });
-      } else {
-        toast({
-          title: 'Trial Signup Failed',
-          description: result.error || 'Failed to start trial. Please try again.',
-          variant: 'destructive'
-        });
-      }
-    } catch (error) {
-      console.error('Trial signup error:', error);
-      toast({
-        title: 'Error',
-        description: 'An unexpected error occurred. Please try again.',
-        variant: 'destructive'
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const copyReferralCode = async () => {
-    if (trialData?.referralCode) {
-      await navigator.clipboard.writeText(trialData.referralCode);
-      toast({
-        title: 'Referral Code Copied',
-        description: 'Share this code to earn bonus trial days!',
-      });
-    }
-  };
-
-  const shareReferralLink = async () => {
-    const url = `${window.location.origin}?ref=${trialData?.referralCode}`;
-    if (navigator.share) {
-      await navigator.share({
-        title: 'Join QuantTrade AI',
-        text: 'Try the most advanced AI trading platform with my referral code!',
-        url
-      });
-    } else {
-      await navigator.clipboard.writeText(url);
-      toast({
-        title: 'Referral Link Copied',
-        description: 'Share this link to invite friends!',
-      });
-    }
-  };
 
   return (
     <>
@@ -187,81 +85,15 @@ export function FreeTrialSignup({
             </div>
           </div>
 
-          {/* Form */}
+          {/* CTA Button */}
           <div className="space-y-4">
-            {!isConnected ? (
-              <div className="text-center space-y-4">
-                <p className="text-muted-foreground">
-                  Connect your wallet to start your free trial
-                </p>
-                <Button onClick={() => connect()} size="lg" className="w-full">
-                  Connect Wallet to Continue
-                </Button>
-              </div>
-            ) : (
-              <>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email (Optional)</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Get important updates about your trading performance
-                  </p>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="referral">Referral Code (Optional)</Label>
-                  <Input
-                    id="referral"
-                    placeholder="Enter referral code"
-                    value={referralCode}
-                    onChange={(e) => setReferralCode(e.target.value.toUpperCase())}
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Get an extra 7 days with a valid referral code!
-                  </p>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="terms"
-                    checked={acceptTerms}
-                    onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
-                  />
-                  <Label htmlFor="terms" className="text-sm">
-                    I agree to the{' '}
-                    <a href="/terms" className="text-primary hover:underline">
-                      Terms of Service
-                    </a>{' '}
-                    and{' '}
-                    <a href="/privacy" className="text-primary hover:underline">
-                      Privacy Policy
-                    </a>
-                  </Label>
-                </div>
-
-                <Button
-                  onClick={handleStartTrial}
-                  disabled={isLoading || !acceptTerms}
-                  size="lg"
-                  className="w-full"
-                >
-                  {isLoading ? (
-                    'Starting Trial...'
-                  ) : (
-                    <>
-                      Start Free 30-Day Trial
-                      <Gift className="ml-2 h-5 w-5" />
-                    </>
-                  )}
-                </Button>
-              </>
-            )}
+            <MissionContributionFlow
+              buttonText="Start Free 30-Day Trial"
+              buttonSize="lg"
+              buttonClassName="w-full"
+              showIcon={true}
+              onComplete={onSuccess}
+            />
           </div>
 
           {/* Trust Indicators */}
@@ -283,78 +115,6 @@ export function FreeTrialSignup({
           </div>
         </CardContent>
       </Card>
-
-      {/* Success Dialog */}
-      <Dialog open={showSuccess} onOpenChange={setShowSuccess}>
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <div className="flex items-center justify-center mb-4">
-              <CheckCircle className="h-16 w-16 text-green-500" />
-            </div>
-            <DialogTitle className="text-center text-2xl">
-              Welcome to QuantTrade AI!
-            </DialogTitle>
-            <DialogDescription className="text-center">
-              Your 30-day free trial has started successfully.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-              <div className="text-center space-y-2">
-                <div className="text-2xl font-bold text-green-600">30 Days</div>
-                <div className="text-sm text-muted-foreground">
-                  Full access to all premium features
-                </div>
-              </div>
-            </div>
-
-            {trialData?.referralCode && (
-              <div className="space-y-3">
-                <div className="text-center">
-                  <h4 className="font-semibold mb-2">Your Referral Code</h4>
-                  <div className="flex items-center gap-2">
-                    <code className="flex-1 p-2 bg-muted rounded text-center font-mono">
-                      {trialData.referralCode}
-                    </code>
-                    <Button size="sm" variant="outline" onClick={copyReferralCode}>
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Share this code to earn 7 extra trial days for each friend who joins!
-                  </p>
-                </div>
-
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={shareReferralLink}
-                    className="flex-1"
-                  >
-                    <Share2 className="h-4 w-4 mr-2" />
-                    Share Link
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={copyReferralCode}
-                    className="flex-1"
-                  >
-                    <Copy className="h-4 w-4 mr-2" />
-                    Copy Code
-                  </Button>
-                </div>
-              </div>
-            )}
-
-            <Button onClick={() => setShowSuccess(false)} className="w-full">
-              Start Trading Now!
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
     </>
   );
 }

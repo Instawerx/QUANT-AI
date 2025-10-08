@@ -12,9 +12,10 @@ import { BrowserProvider } from 'ethers';
 interface WinModalProps {
   prize: Prize;
   onClose: () => void;
+  referralCode?: string;
 }
 
-export default function WinModal({ prize, onClose }: WinModalProps) {
+export default function WinModal({ prize, onClose, referralCode }: WinModalProps) {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [isCollecting, setIsCollecting] = useState(false);
   const [collectStatus, setCollectStatus] = useState<'idle' | 'collecting' | 'success' | 'error'>('idle');
@@ -225,7 +226,7 @@ export default function WinModal({ prize, onClose }: WinModalProps) {
           className="mt-8 pt-6 border-t border-slate-700/50"
         >
           <p className="text-slate-300 text-center mb-4 font-light tracking-wide">Share your achievement</p>
-          <ShareButtons prize={prize} />
+          <ShareButtons prize={prize} referralCode={referralCode} />
         </motion.div>
 
         {/* Executive Close Button */}

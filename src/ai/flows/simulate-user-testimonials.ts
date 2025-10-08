@@ -1,4 +1,4 @@
-'use server';
+// 'use server' // Disabled for static export;
 
 /**
  * @fileOverview A flow to generate simulated user testimonials for the QuantTrade AI platform.

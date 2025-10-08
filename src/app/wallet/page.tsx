@@ -1,7 +1,25 @@
 "use client";
 
-import { useState } from 'react';
+export const dynamic = 'force-dynamic';
+
+import { useState, useEffect } from 'react';
 import { useWallet } from '@/context/wallet-context';
+
+// Wrapper to handle SSR
+function WalletPageContent() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return <div className="container mx-auto px-4 py-8">Loading...</div>;
+  }
+
+  return <WalletPageInner />;
+}
+
 import { useQuantToken } from '@/hooks/use-quant-token';
 import { useAccessRegistry } from '@/hooks/use-access-registry';
 import { useTransactions } from '@/hooks/use-transactions';
@@ -25,7 +43,7 @@ import {
   AlertTriangle
 } from 'lucide-react';
 
-export default function WalletPage() {
+function WalletPageInner() {
   const {
     account,
     balance,
@@ -428,3 +446,5 @@ export default function WalletPage() {
     </div>
   );
 }
+
+export default WalletPageContent;

@@ -1,3 +1,5 @@
+'use client';
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { FxTradingSection } from "@/components/fx-trading-section";

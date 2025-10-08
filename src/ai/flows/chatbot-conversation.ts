@@ -1,4 +1,4 @@
-'use server';
+// 'use server' // Disabled for static export;
 
 /**
  * @fileOverview A conversational AI flow for a user-facing chatbot on the QuantTrade AI platform.

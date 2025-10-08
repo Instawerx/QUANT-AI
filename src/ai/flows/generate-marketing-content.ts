@@ -1,5 +1,5 @@
 // src/ai/flows/generate-marketing-content.ts
-'use server';
+// 'use server' // Disabled for static export;
 
 /**
  * @fileOverview Generates marketing content for the QuantTrade AI platform, emphasizing its unique features and advantages.

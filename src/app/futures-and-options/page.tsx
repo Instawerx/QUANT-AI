@@ -1,3 +1,7 @@
+'use client';
+
+export const dynamic = 'force-dynamic';
+
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { FuturesOptionsSection } from "@/components/futures-options-section";

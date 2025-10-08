@@ -3,10 +3,35 @@ import { Button } from '@/components/ui/button';
 import { Wallet } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useWallet } from '@/context/wallet-context';
+import { useEffect, useState } from 'react';
 
 export function ConnectWalletButton() {
   const { toast } = useToast();
-  const { account, setAccount } = useWallet();
+  const [mounted, setMounted] = useState(false);
+  const [account, setAccount] = useState<string | null>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // Return a placeholder during SSR
+    return (
+      <Button variant="outline" className="border-accent text-accent hover:bg-accent hover:text-accent-foreground transition-all">
+        <Wallet className="mr-2 h-4 w-4" />
+        Connect Wallet
+      </Button>
+    );
+  }
+
+  return <ConnectWalletButtonInner />;
+}
+
+function ConnectWalletButtonInner() {
+  const { toast } = useToast();
+  const wallet = useWallet();
+  const account = wallet.account;
+  const setAccount = wallet.setAccount;
 
   const handleConnect = async () => {
     if (!(window as any).ethereum) {

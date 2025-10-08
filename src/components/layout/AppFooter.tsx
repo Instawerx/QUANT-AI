@@ -7,7 +7,7 @@ import {
   Brain,
   Twitter,
   Github,
-  Discord,
+  MessageCircle,
   Mail,
   Shield,
   Clock,
@@ -47,7 +47,7 @@ export function AppFooter() {
 
   const socialLinks = [
     { icon: Twitter, href: 'https://twitter.com/quanttradeai', label: 'Twitter' },
-    { icon: Discord, href: 'https://discord.gg/quanttradeai', label: 'Discord' },
+    { icon: MessageCircle, href: 'https://discord.gg/quanttradeai', label: 'Discord' },
     { icon: Github, href: 'https://github.com/quanttradeai', label: 'GitHub' },
     { icon: Mail, href: 'mailto:support@quanttradeai.com', label: 'Email' },
   ];
