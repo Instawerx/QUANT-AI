@@ -17,21 +17,22 @@ export function BnbPrice({ onPriceUpdate }: BnbPriceProps) {
     useEffect(() => {
         const fetchPrice = async () => {
             try {
-                const response = await fetch('/api/price');
+                // Use CoinGecko's free public API directly (no API key needed)
+                const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=binancecoin&vs_currencies=usd');
                 const data = await response.json();
-                
+
                 if (!response.ok) {
-                    // Use a more specific error message if the key is invalid
-                    if (data.details && data.details.includes('API key is not configured')) {
-                         throw new Error('CoinMarketCap API key is not configured. Please add it to your .env file.');
-                    }
-                    throw new Error(data.details || data.error || 'Failed to fetch price');
+                    throw new Error('Failed to fetch BNB price from CoinGecko');
                 }
-                
+
+                if (!data.binancecoin || !data.binancecoin.usd) {
+                    throw new Error('Invalid response from CoinGecko API');
+                }
+
                 if (price !== null) {
                     prevPriceRef.current = price;
                 }
-                setPrice(data.price);
+                setPrice(data.binancecoin.usd);
                 setError(null); // Clear previous errors on success
             } catch (error: any) {
                 console.error("Error fetching BNB price:", error.message);
