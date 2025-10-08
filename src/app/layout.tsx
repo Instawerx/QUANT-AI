@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { WalletProvider } from '@/components/wallet/WalletProvider';
 // import { SignupChatbot } from '@/components/signup-chatbot'; // Disabled for static export (uses Genkit/fs)
 import { SignUpToast } from '@/components/signup-toast';
+import { SpinPromoPopup } from '@/components/popups/SpinPromoPopup';
 // import { LiveGainsTicker } from '@/components/live-gains-ticker'; // Disabled for static export (uses Genkit)
 // import { startTelemetry } from '@/lib/telemetry';
 
@@ -35,6 +36,7 @@ export default function RootLayout({
           {children}
           <Toaster />
           <SignUpToast />
+          <SpinPromoPopup />
           {/* <LiveGainsTicker /> Disabled for static export */}
           {/* <SignupChatbot /> Disabled for static export */}
         </WalletProvider>

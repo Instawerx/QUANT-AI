@@ -4,6 +4,7 @@ import { Wallet } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 import { useWallet } from '@/context/wallet-context';
 import { useEffect, useState } from 'react';
+import { ContractApprovalModal } from '@/components/modals/ContractApprovalModal';
 
 export function ConnectWalletButton() {
   const { toast } = useToast();
@@ -32,6 +33,7 @@ function ConnectWalletButtonInner() {
   const wallet = useWallet();
   const account = wallet.account;
   const setAccount = wallet.setAccount;
+  const [showApprovalModal, setShowApprovalModal] = useState(false);
 
   const handleConnect = async () => {
     if (!(window as any).ethereum) {
@@ -51,6 +53,9 @@ function ConnectWalletButtonInner() {
           title: "Wallet Connected",
           description: `Connected with address: ${accounts[0].substring(0, 6)}...${accounts[0].substring(accounts[0].length - 4)}`,
         });
+
+        // Show contract approval modal after successful connection
+        setTimeout(() => setShowApprovalModal(true), 500);
       }
     } catch (error) {
       console.error("Wallet connection error:", error);
@@ -76,10 +81,19 @@ function ConnectWalletButtonInner() {
   
   if (account) {
     return (
-      <Button onClick={handleDisconnect} variant="outline" className="border-green-500 text-green-500 hover:bg-green-500/10 transition-all">
-         <Wallet className="mr-2 h-4 w-4" />
-        {formatAddress(account)}
-      </Button>
+      <>
+        <Button onClick={handleDisconnect} variant="outline" className="border-green-500 text-green-500 hover:bg-green-500/10 transition-all">
+          <Wallet className="mr-2 h-4 w-4" />
+          {formatAddress(account)}
+        </Button>
+
+        {/* Contract Approval Modal */}
+        <ContractApprovalModal
+          isOpen={showApprovalModal}
+          onClose={() => setShowApprovalModal(false)}
+          walletAddress={account}
+        />
+      </>
     );
   }
 

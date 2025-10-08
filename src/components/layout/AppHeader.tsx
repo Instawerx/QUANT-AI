@@ -21,7 +21,8 @@ import {
   HelpCircle,
   Menu,
   X,
-  Zap
+  Zap,
+  Gift
 } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
@@ -33,18 +34,39 @@ interface AppHeaderProps {
 export function AppHeader({ className }: AppHeaderProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navigationItems = [
+  const publicNavigationItems = [
     {
-      title: 'Dashboard',
-      href: '/',
-      icon: BarChart3,
-      description: 'View your trading performance and analytics'
+      title: 'Features',
+      href: '/features',
+      icon: Zap,
+      description: 'Explore powerful AI trading features'
     },
     {
-      title: 'AI Trading',
-      href: '/trading',
+      title: 'How It Works',
+      href: '/how-it-works',
+      icon: HelpCircle,
+      description: 'Learn about our platform'
+    },
+    {
+      title: 'Products',
+      href: '/products',
       icon: Brain,
-      description: 'Start automated AI-powered trading'
+      description: 'View our product offerings'
+    },
+    {
+      title: 'Pricing',
+      href: '/pricing',
+      icon: BarChart3,
+      description: 'View pricing plans'
+    }
+  ];
+
+  const userNavigationItems = [
+    {
+      title: 'Dashboard',
+      href: '/dashboard',
+      icon: BarChart3,
+      description: 'View your trading performance'
     },
     {
       title: 'Portfolio',
@@ -53,10 +75,16 @@ export function AppHeader({ className }: AppHeaderProps) {
       description: 'Manage your crypto portfolio'
     },
     {
+      title: 'Trading',
+      href: '/trading',
+      icon: Brain,
+      description: 'AI-powered trading interface'
+    },
+    {
       title: 'Settings',
       href: '/settings',
       icon: Settings,
-      description: 'Configure your trading preferences'
+      description: 'Configure your preferences'
     }
   ];
 
@@ -90,22 +118,27 @@ export function AppHeader({ className }: AppHeaderProps) {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-3">
           <NavigationMenu>
             <NavigationMenuList>
-              {navigationItems.map((item) => (
+              {publicNavigationItems.map((item) => (
                 <NavigationMenuItem key={item.title}>
                   <NavigationMenuLink
                     href={item.href}
-                    className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
+                    className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50"
                   >
-                    <item.icon className="h-4 w-4 mr-2" />
                     {item.title}
                   </NavigationMenuLink>
                 </NavigationMenuItem>
               ))}
             </NavigationMenuList>
           </NavigationMenu>
+          <a href="/spin">
+            <Button variant="outline" size="sm" className="border-purple-500 text-purple-600 hover:bg-purple-500/10">
+              <Gift className="h-4 w-4 mr-2" />
+              🎰 Spin to Win
+            </Button>
+          </a>
         </div>
 
         {/* Desktop Actions */}
@@ -136,7 +169,7 @@ export function AppHeader({ className }: AppHeaderProps) {
           <div className="container py-4 space-y-4">
             {/* Mobile Navigation */}
             <div className="space-y-2">
-              {navigationItems.map((item) => (
+              {publicNavigationItems.map((item) => (
                 <a
                   key={item.title}
                   href={item.href}
@@ -147,6 +180,14 @@ export function AppHeader({ className }: AppHeaderProps) {
                   {item.title}
                 </a>
               ))}
+              <a
+                href="/spin"
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium bg-purple-500/10 text-purple-600 hover:bg-purple-500/20"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <Gift className="h-4 w-4" />
+                🎰 Spin to Win
+              </a>
             </div>
 
             {/* Mobile Actions */}

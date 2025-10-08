@@ -125,14 +125,16 @@ export function TradingChart({
   };
 
   useEffect(() => {
-    if (!chartContainerRef.current) return;
+    if (!chartContainerRef.current || typeof window === 'undefined') return;
+    if (!createChart || !ColorType) return;
 
-    // Create chart
-    const chart = createChart(chartContainerRef.current, {
-      layout: {
-        background: { type: ColorType.Solid, color: '#1a1a1a' },
-        textColor: '#d1d5db',
-      },
+    try {
+      // Create chart
+      const chart = createChart(chartContainerRef.current, {
+        layout: {
+          background: { type: ColorType.Solid, color: '#1a1a1a' },
+          textColor: '#d1d5db',
+        },
       grid: {
         vertLines: { color: '#2d2d2d' },
         horzLines: { color: '#2d2d2d' },
@@ -207,12 +209,15 @@ export function TradingChart({
       }
     };
 
-    window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', handleResize);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      chart.remove();
-    };
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        chart.remove();
+      };
+    } catch (error) {
+      console.error('Chart initialization error:', error);
+    }
   }, [height, symbol]);
 
   // Real-time simulation effect
