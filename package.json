@@ -83,6 +83,7 @@
     "express-validator": "^7.2.1",
     "firebase": "^11.9.1",
     "firebase-admin": "^13.5.0",
+    "framer-motion": "^12.23.22",
     "genkit": "^1.14.1",
     "helmet": "^8.1.0",
     "i18next": "^25.5.2",
