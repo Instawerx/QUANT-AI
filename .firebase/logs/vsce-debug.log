@@ -461,3 +461,57 @@ I1007 19:28:29.165179   36168 load.go:109] Finished reloading
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 19:28:29.175812   36168 dev.go:102] Listening on address (HTTP + gRPC): 127.0.0.1:50001\n"}}
 [debug] [2025-10-08T00:28:29.314Z] I1007 19:28:29.307555   36168 engine.go:169] [/emulator/quantai 331e] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
  {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 19:28:29.307555   36168 engine.go:169] [/emulator/quantai 331e] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
+[debug] [2025-10-08T01:00:27.480Z] [Firebase Plugin] Activating Firebase extension.
+[debug] [2025-10-08T01:00:32.641Z] [Firebase Plugin] requireAuthWrapper
+[debug] [2025-10-08T01:00:32.644Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-10-08T01:00:32.644Z] > authorizing via signed-in user (vrdivebar@gmail.com)
+[debug] [2025-10-08T01:00:32.648Z] Checked if tokens are valid: true, expires at: 1759886906142
+[debug] [2025-10-08T01:00:32.648Z] Checked if tokens are valid: true, expires at: 1759886906142
+[debug] [2025-10-08T01:00:32.648Z] [Firebase Plugin] User found:  vrdivebar@gmail.com
+[info] [Firebase Plugin] (Core:Project) New user detected, fetching projects
+[debug] [2025-10-08T01:00:32.650Z] Checked if tokens are valid: true, expires at: 1759886906142
+[debug] [2025-10-08T01:00:32.651Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=1000
+[debug] [2025-10-08T01:00:32.662Z] [Firebase Plugin] VSCode notification server listening on port 40001
+[info] [Firebase Plugin] Starting Data Connect toolkit (version 2.13.0) on port 50002
+[debug] [2025-10-08T01:00:33.054Z] I1007 20:00:33.044206   36588 control.go:94] [/emulator/quantai ee9f] UpdateResources(): done
+Schema: sources: schema\schema.gql [1992B] 
+Connector "example": sources: example\mutations.gql [1243B] example\queries.gql [1801B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:33.044206   36588 control.go:94] [/emulator/quantai ee9f] UpdateResources(): done\nSchema: sources: schema\\schema.gql [1992B] \nConnector \"example\": sources: example\\mutations.gql [1243B] example\\queries.gql [1801B] \n"}}
+[debug] [2025-10-08T01:00:33.055Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2025-10-08T01:00:33.055Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"dataconnect"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2025-10-08T01:00:33.055Z] Starting Data Connect Emulator with command {"binary":"C:\\Users\\tabor\\.cache\\firebase\\emulators\\dataconnect-emulator-2.13.0.exe","args":["--logtostderr","-v=2","dev","--listen=localhost:50002","--config_dir=c:\\QuantAI\\dataconnect","--enable_output_schema_extensions=true","--enable_output_generated_sdk=true"],"optionalArgs":["listen","config_dir","enable_output_schema_extensions","enable_output_generated_sdk"],"joinArgs":true,"shell":false,"port":9399} {"metadata":{"emulator":{"name":"dataconnect"},"message":"Starting Data Connect Emulator with command {\"binary\":\"C:\\\\Users\\\\tabor\\\\.cache\\\\firebase\\\\emulators\\\\dataconnect-emulator-2.13.0.exe\",\"args\":[\"--logtostderr\",\"-v=2\",\"dev\",\"--listen=localhost:50002\",\"--config_dir=c:\\\\QuantAI\\\\dataconnect\",\"--enable_output_schema_extensions=true\",\"--enable_output_generated_sdk=true\"],\"optionalArgs\":[\"listen\",\"config_dir\",\"enable_output_schema_extensions\",\"enable_output_generated_sdk\"],\"joinArgs\":true,\"shell\":false,\"port\":9399}"}}
+[info] i  dataconnect: Data Connect Emulator logging to dataconnect-debug.log {"metadata":{"emulator":{"name":"dataconnect"},"message":"Data Connect Emulator logging to \u001b[1mdataconnect-debug.log\u001b[22m"}}
+[debug] [2025-10-08T01:00:33.135Z] I1007 20:00:33.086213   36812 load.go:31] Reloading schema and connectors...
+I1007 20:00:33.109327   36812 control.go:94] [/emulator/quantai f290] UpdateResources(): done
+Schema: sources: schema\schema.gql [1992B] 
+Connector "example": sources: example\mutations.gql [1243B] example\queries.gql [1801B] 
+I1007 20:00:33.126537   36812 codegen.go:82] [connector "example" javascriptSdk] Generating sources into "c:\\QuantAI\\src\\dataconnect-generated"
+I1007 20:00:33.134336   36812 codegen.go:82] [connector "example" javascriptSdk] Generating sources into "c:\\QuantAI\\QUANT-AI-main\\src\\dataconnect-generated"
+I1007 20:00:33.134336   36812 codegen.go:82] [connector "example" javascriptSdk] Generating sources into "c:\\QuantAI\\backend\\src\\dataconnect-generated"
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:33.086213   36812 load.go:31] Reloading schema and connectors...\nI1007 20:00:33.109327   36812 control.go:94] [/emulator/quantai f290] UpdateResources(): done\nSchema: sources: schema\\schema.gql [1992B] \nConnector \"example\": sources: example\\mutations.gql [1243B] example\\queries.gql [1801B] \nI1007 20:00:33.126537   36812 codegen.go:82] [connector \"example\" javascriptSdk] Generating sources into \"c:\\\\QuantAI\\\\src\\\\dataconnect-generated\"\nI1007 20:00:33.134336   36812 codegen.go:82] [connector \"example\" javascriptSdk] Generating sources into \"c:\\\\QuantAI\\\\QUANT-AI-main\\\\src\\\\dataconnect-generated\"\nI1007 20:00:33.134336   36812 codegen.go:82] [connector \"example\" javascriptSdk] Generating sources into \"c:\\\\QuantAI\\\\backend\\\\src\\\\dataconnect-generated\"\n"}}
+[debug] [2025-10-08T01:00:33.155Z] I1007 20:00:33.145266   36812 collector.go:107] schema extensions wrote into "c:\\QuantAI\\dataconnect\\.dataconnect\\schema"
+Generated sources: main\input.gql [28173B] main\relation.gql [13746B] prelude.gql [73251B] main\query.gql [5099B] main\mutation.gql [13679B] main\implicit.gql [1261B] 
+I1007 20:00:33.150114   36812 collector.go:107] connector "example" javascriptSdk wrote into "c:\\QuantAI\\src\\dataconnect-generated"
+Generated sources: esm\index.esm.js [3560B] package.json [863B] react\index.d.ts [3961B] react\esm\package.json [17B] react\index.cjs.js [3439B] react\esm\index.esm.js [3269B] index.d.ts [8025B] esm\package.json [17B] index.cjs.js [4050B] README.md [40931B] react\package.json [460B] react\README.md [48299B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:33.145266   36812 collector.go:107] schema extensions wrote into \"c:\\\\QuantAI\\\\dataconnect\\\\.dataconnect\\\\schema\"\nGenerated sources: main\\input.gql [28173B] main\\relation.gql [13746B] prelude.gql [73251B] main\\query.gql [5099B] main\\mutation.gql [13679B] main\\implicit.gql [1261B] \nI1007 20:00:33.150114   36812 collector.go:107] connector \"example\" javascriptSdk wrote into \"c:\\\\QuantAI\\\\src\\\\dataconnect-generated\"\nGenerated sources: esm\\index.esm.js [3560B] package.json [863B] react\\index.d.ts [3961B] react\\esm\\package.json [17B] react\\index.cjs.js [3439B] react\\esm\\index.esm.js [3269B] index.d.ts [8025B] esm\\package.json [17B] index.cjs.js [4050B] README.md [40931B] react\\package.json [460B] react\\README.md [48299B] \n"}}
+[debug] [2025-10-08T01:00:33.166Z] I1007 20:00:33.164992   36812 installsdk.go:86] Running command: C:\Program Files\nodejs\npm.cmd install file:src\dataconnect-generated
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:33.164992   36812 installsdk.go:86] Running command: C:\\Program Files\\nodejs\\npm.cmd install file:src\\dataconnect-generated\n"}}
+[debug] [2025-10-08T01:00:33.577Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2025-10-08T01:00:33.577Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2025-10-08T01:00:35.794Z] E1007 20:00:35.799575   36812 installsdk.go:88] Failed to install package: exit status 1
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"E1007 20:00:35.799575   36812 installsdk.go:88] Failed to install package: exit status 1\n"}}
+[debug] [2025-10-08T01:00:35.800Z] I1007 20:00:35.804857   36812 collector.go:107] connector "example" javascriptSdk wrote into "c:\\QuantAI\\QUANT-AI-main\\src\\dataconnect-generated"
+Generated sources: react\README.md [48299B] esm\index.esm.js [3560B] esm\package.json [17B] README.md [40931B] react\index.d.ts [3961B] react\package.json [460B] react\esm\index.esm.js [3269B] index.d.ts [8025B] index.cjs.js [4050B] package.json [863B] react\esm\package.json [17B] react\index.cjs.js [3439B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:35.804857   36812 collector.go:107] connector \"example\" javascriptSdk wrote into \"c:\\\\QuantAI\\\\QUANT-AI-main\\\\src\\\\dataconnect-generated\"\nGenerated sources: react\\README.md [48299B] esm\\index.esm.js [3560B] esm\\package.json [17B] README.md [40931B] react\\index.d.ts [3961B] react\\package.json [460B] react\\esm\\index.esm.js [3269B] index.d.ts [8025B] index.cjs.js [4050B] package.json [863B] react\\esm\\package.json [17B] react\\index.cjs.js [3439B] \n"}}
+[debug] [2025-10-08T01:00:35.815Z] I1007 20:00:35.820376   36812 installsdk.go:55] Package @dataconnect/generated is already installed. Skipping installation
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:35.820376   36812 installsdk.go:55] Package @dataconnect/generated is already installed. Skipping installation\n"}}
+[debug] [2025-10-08T01:00:35.817Z] I1007 20:00:35.822504   36812 collector.go:107] connector "example" javascriptSdk wrote into "c:\\QuantAI\\backend\\src\\dataconnect-generated"
+Generated sources: esm\index.esm.js [3560B] esm\package.json [17B] index.cjs.js [4050B] package.json [637B] README.md [40804B] index.d.ts [8025B] 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:35.822504   36812 collector.go:107] connector \"example\" javascriptSdk wrote into \"c:\\\\QuantAI\\\\backend\\\\src\\\\dataconnect-generated\"\nGenerated sources: esm\\index.esm.js [3560B] esm\\package.json [17B] index.cjs.js [4050B] package.json [637B] README.md [40804B] index.d.ts [8025B] \n"}}
+[debug] [2025-10-08T01:00:35.833Z] I1007 20:00:35.837361   36812 installsdk.go:55] Package @dataconnect/generated is already installed. Skipping installation
+I1007 20:00:35.837361   36812 load.go:109] Finished reloading
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:35.837361   36812 installsdk.go:55] Package @dataconnect/generated is already installed. Skipping installation\nI1007 20:00:35.837361   36812 load.go:109] Finished reloading\n"}}
+[debug] [2025-10-08T01:00:35.841Z] I1007 20:00:35.846250   36812 dev.go:102] Listening on address (HTTP + gRPC): 127.0.0.1:50002
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:35.846250   36812 dev.go:102] Listening on address (HTTP + gRPC): 127.0.0.1:50002\n"}}
+[debug] [2025-10-08T01:00:35.993Z] I1007 20:00:35.997616   36812 engine.go:169] [/emulator/quantai f290] ExecuteGraphqlRead IntrospectionQuery: succeeded. 
+ {"metadata":{"emulator":{"name":"dataconnect"},"message":"I1007 20:00:35.997616   36812 engine.go:169] [/emulator/quantai f290] ExecuteGraphqlRead IntrospectionQuery: succeeded. \n"}}
